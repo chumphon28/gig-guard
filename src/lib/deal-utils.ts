@@ -65,22 +65,22 @@ export const STATUS_LABELS: Record<DealStatus, string> = {
   pending_confirmation: 'รอยืนยัน',
   confirmed: 'ยืนยันแล้ว',
   shipped: 'จัดส่งแล้ว',
-  releasing_deposit: 'โอนมัดจำให้ผู้ขาย',
+  releasing_deposit: 'โอนเงิน',
   completed: 'เสร็จสิ้น',
   disputed: 'มีข้อพิพาท',
   cancelled: 'ยกเลิก',
 }
 
 export const STATUS_STYLES: Record<DealStatus, string> = {
-  created: 'bg-surface-container-high text-on-surface-variant',
-  awaiting_deposit: 'bg-surface-container-high text-on-surface-variant',
+  created: 'bg-surface-container text-on-surface-variant',
+  awaiting_deposit: 'bg-primary-container text-primary',
   pending_confirmation: 'bg-error-container text-on-error-container',
   confirmed: 'bg-secondary-container text-on-secondary-container',
-  shipped: 'bg-on-tertiary-container text-white',
+  shipped: 'bg-tertiary-container text-on-tertiary-container',
   releasing_deposit: 'bg-tertiary-container text-on-tertiary-container',
-  completed: 'bg-secondary text-on-secondary',
+  completed: 'bg-secondary-container text-on-secondary-container',
   disputed: 'bg-error-container text-error',
-  cancelled: 'bg-surface-container-high text-on-surface-variant',
+  cancelled: 'bg-surface-container text-on-surface-variant',
 }
 
 export function formatCurrency(amount: number): string {

@@ -35,7 +35,6 @@ export default async function AdminPage() {
   const deals = allDeals ?? []
   const txs = txRows ?? []
 
-  // Escrow balance = deposit_in - deposit_out (deposits still held by system)
   const depositIn = txs.filter(t => t.type === 'deposit_in').reduce((s, t) => s + Number(t.amount), 0)
   const depositOut = txs.filter(t => t.type === 'deposit_out').reduce((s, t) => s + Number(t.amount), 0)
   const remainingIn = txs.filter(t => t.type === 'remaining_in').reduce((s, t) => s + Number(t.amount), 0)
@@ -47,7 +46,6 @@ export default async function AdminPage() {
   const disputedDeals = deals.filter(d => d.status === 'disputed')
   const totalValue = deals.reduce((s, d) => s + Number(d.total_amount), 0)
 
-  // Group by status for the breakdown
   const byStatus = STATUS_ORDER.map(s => ({
     status: s,
     deals: deals.filter(d => d.status === s),
@@ -57,95 +55,97 @@ export default async function AdminPage() {
     <div className="min-h-screen bg-background pb-8">
       <Header userName={profile.name} isAdmin />
 
-      <main className="pt-20 px-4 md:px-6 max-w-[1280px] mx-auto mt-6">
-        <div className="flex items-center gap-3 mb-8">
-          <span className="material-symbols-outlined text-[32px] text-error">admin_panel_settings</span>
-          <div>
-            <h1 className="text-[28px] font-bold text-on-surface">Admin Report</h1>
-            <p className="text-on-surface-variant text-[14px]">ภาพรวมระบบ GigGuard DAO</p>
+      {/* Page hero */}
+      <div className="brand-gradient pt-16">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-8">
+          <p className="text-white/70 text-[12px] font-bold uppercase tracking-widest mb-1">Admin Panel</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-[26px] font-extrabold text-white">GigGuard Report</h1>
+              <p className="text-white/70 text-[14px] mt-1">ภาพรวมระบบ GigGuard DAO</p>
+            </div>
+            <Link
+              href="/admin/disputes"
+              className="flex items-center gap-2 bg-error text-on-error px-4 py-2.5 rounded-xl font-bold text-[13px] hover:opacity-90 transition-all shadow-sm"
+            >
+              <span className="material-symbols-outlined text-[18px]">gavel</span>
+              ตัดสินข้อพิพาท
+              {disputedDeals.length > 0 && (
+                <span className="bg-white text-error rounded-full w-5 h-5 flex items-center justify-center text-[11px] font-bold">
+                  {disputedDeals.length}
+                </span>
+              )}
+            </Link>
           </div>
-          <Link
-            href="/admin/disputes"
-            className="ml-auto flex items-center gap-2 bg-error text-on-error px-4 py-2 rounded-xl font-semibold text-[14px] hover:opacity-90 transition-all"
-          >
-            <span className="material-symbols-outlined text-[18px]">gavel</span>
-            ตัดสินข้อพิพาท
-            {disputedDeals.length > 0 && (
-              <span className="bg-white text-error rounded-full w-5 h-5 flex items-center justify-center text-[12px] font-bold">
-                {disputedDeals.length}
-              </span>
-            )}
-          </Link>
         </div>
+      </div>
 
+      <main className="px-4 md:px-6 max-w-[1280px] mx-auto mt-6">
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm">
-            <p className="text-[11px] font-semibold text-on-surface-variant uppercase tracking-wider">Deal ทั้งหมด</p>
-            <p className="text-[32px] font-bold text-on-surface mt-1">{deals.length}</p>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-card">
+            <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Deal ทั้งหมด</p>
+            <p className="text-[30px] font-extrabold text-on-surface mt-1">{deals.length}</p>
           </div>
-          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm">
-            <p className="text-[11px] font-semibold text-on-surface-variant uppercase tracking-wider">Active</p>
-            <p className="text-[32px] font-bold text-primary mt-1">{activeDeals.length}</p>
+          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-card">
+            <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Active</p>
+            <p className="text-[30px] font-extrabold text-primary mt-1">{activeDeals.length}</p>
           </div>
-          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm">
-            <p className="text-[11px] font-semibold text-on-surface-variant uppercase tracking-wider">เสร็จสิ้น</p>
-            <p className="text-[32px] font-bold text-secondary mt-1">{completedDeals.length}</p>
+          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-card">
+            <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">เสร็จสิ้น</p>
+            <p className="text-[30px] font-extrabold text-secondary mt-1">{completedDeals.length}</p>
           </div>
-          <div className={`rounded-2xl p-5 shadow-sm ${disputedDeals.length > 0 ? 'bg-error-container' : 'bg-white border border-outline-variant'}`}>
-            <p className={`text-[11px] font-semibold uppercase tracking-wider ${disputedDeals.length > 0 ? 'text-on-error-container' : 'text-on-surface-variant'}`}>
+          <div className={`rounded-2xl p-5 shadow-card ${disputedDeals.length > 0 ? 'bg-error-container border border-error/20' : 'bg-white border border-outline-variant'}`}>
+            <p className={`text-[11px] font-bold uppercase tracking-wider ${disputedDeals.length > 0 ? 'text-on-error-container' : 'text-on-surface-variant'}`}>
               ข้อพิพาท
             </p>
-            <p className={`text-[32px] font-bold mt-1 ${disputedDeals.length > 0 ? 'text-error' : 'text-on-surface'}`}>
+            <p className={`text-[30px] font-extrabold mt-1 ${disputedDeals.length > 0 ? 'text-error' : 'text-on-surface'}`}>
               {disputedDeals.length}
             </p>
           </div>
-          <div className="bg-tertiary-container rounded-2xl p-5 shadow-sm col-span-2 md:col-span-1">
-            <p className="text-[11px] font-semibold text-on-tertiary-container uppercase tracking-wider">เงิน Escrow ในระบบ</p>
-            <p className="text-[22px] font-bold text-on-tertiary-container mt-1">{formatCurrency(escrowBalance)}</p>
+          <div className="bg-tertiary-container rounded-2xl p-5 shadow-card col-span-2 md:col-span-1 border border-tertiary/10">
+            <p className="text-[11px] font-bold text-on-tertiary-container uppercase tracking-wider">เงิน Escrow</p>
+            <p className="text-[20px] font-extrabold text-on-tertiary-container mt-1">{formatCurrency(escrowBalance)}</p>
           </div>
         </div>
 
         {/* Escrow breakdown */}
-        <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm mb-8">
-          <h2 className="text-[14px] font-bold text-on-surface-variant uppercase tracking-wider mb-4 flex items-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">account_balance</span>
+        <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-card mb-6">
+          <h2 className="text-[12px] font-bold text-on-surface-variant uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span className="material-symbols-outlined text-[16px]">account_balance</span>
             สรุป Escrow
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">มัดจำเข้าระบบ</p>
-              <p className="text-[18px] font-bold text-on-surface mt-1">{formatCurrency(depositIn)}</p>
-            </div>
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">มัดจำโอนให้ Seller</p>
-              <p className="text-[18px] font-bold text-secondary mt-1">{formatCurrency(depositOut)}</p>
-            </div>
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">ยอดที่เหลือเข้าระบบ</p>
-              <p className="text-[18px] font-bold text-on-surface mt-1">{formatCurrency(remainingIn)}</p>
-            </div>
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">ยอดที่เหลือโอนให้ Seller</p>
-              <p className="text-[18px] font-bold text-secondary mt-1">{formatCurrency(remainingOut)}</p>
-            </div>
+            {[
+              { label: 'มัดจำเข้าระบบ', value: depositIn, color: 'text-secondary' },
+              { label: 'มัดจำโอนให้ Seller', value: depositOut, color: 'text-primary' },
+              { label: 'ยอดที่เหลือเข้า', value: remainingIn, color: 'text-secondary' },
+              { label: 'ยอดที่เหลือออก', value: remainingOut, color: 'text-primary' },
+            ].map(item => (
+              <div key={item.label} className="bg-surface-container-low rounded-xl p-4">
+                <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">{item.label}</p>
+                <p className={`text-[16px] font-extrabold ${item.color} mt-1`}>{formatCurrency(item.value)}</p>
+              </div>
+            ))}
           </div>
-          <div className="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center">
-            <p className="text-[14px] font-semibold text-on-surface">คงเหลือในระบบ</p>
-            <p className="text-[20px] font-bold text-on-tertiary-container">{formatCurrency(escrowBalance)}</p>
-          </div>
-          <div className="mt-2 flex justify-between items-center">
-            <p className="text-[14px] font-semibold text-on-surface">มูลค่า Deal รวมทั้งหมด</p>
-            <p className="text-[20px] font-bold text-on-surface">{formatCurrency(totalValue)}</p>
+          <div className="mt-4 pt-4 border-t border-outline-variant grid grid-cols-2 gap-4">
+            <div className="flex items-center justify-between">
+              <p className="text-[14px] font-semibold text-on-surface">คงเหลือในระบบ</p>
+              <p className="text-[18px] font-extrabold text-tertiary">{formatCurrency(escrowBalance)}</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-[14px] font-semibold text-on-surface">มูลค่ารวม</p>
+              <p className="text-[18px] font-extrabold text-on-surface">{formatCurrency(totalValue)}</p>
+            </div>
           </div>
         </div>
 
-        {/* All transactions */}
-        <h2 className="text-[20px] font-bold text-on-surface mb-4 flex items-center gap-2">
-          <span className="material-symbols-outlined text-[22px]">receipt_long</span>
+        {/* Transactions */}
+        <h2 className="text-[18px] font-extrabold text-on-surface mb-4 flex items-center gap-2">
+          <span className="material-symbols-outlined text-[20px] text-on-surface-variant">receipt_long</span>
           Escrow Transactions ({txs.length})
         </h2>
-        <div className="bg-white border border-outline-variant rounded-2xl shadow-sm mb-10 overflow-hidden">
+        <div className="bg-white border border-outline-variant rounded-2xl shadow-card mb-8 overflow-hidden">
           {txs.length === 0 ? (
             <div className="p-10 text-center text-on-surface-variant">ยังไม่มี Transaction</div>
           ) : (
@@ -153,11 +153,11 @@ export default async function AdminPage() {
               <table className="w-full text-[13px]">
                 <thead>
                   <tr className="border-b border-outline-variant bg-surface-container">
-                    <th className="text-left px-5 py-3 font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">เวลา</th>
-                    <th className="text-left px-5 py-3 font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">ประเภท</th>
-                    <th className="text-left px-5 py-3 font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Deal</th>
-                    <th className="text-left px-5 py-3 font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">รายละเอียด</th>
-                    <th className="text-right px-5 py-3 font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">จำนวน</th>
+                    <th className="text-left px-5 py-3 font-bold text-on-surface-variant uppercase tracking-wider text-[10px]">เวลา</th>
+                    <th className="text-left px-5 py-3 font-bold text-on-surface-variant uppercase tracking-wider text-[10px]">ประเภท</th>
+                    <th className="text-left px-5 py-3 font-bold text-on-surface-variant uppercase tracking-wider text-[10px]">Deal</th>
+                    <th className="text-left px-5 py-3 font-bold text-on-surface-variant uppercase tracking-wider text-[10px]">รายละเอียด</th>
+                    <th className="text-right px-5 py-3 font-bold text-on-surface-variant uppercase tracking-wider text-[10px]">จำนวน</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -170,15 +170,13 @@ export default async function AdminPage() {
                       remaining_out: 'ยอดเหลือออก',
                     }
                     return (
-                      <tr key={tx.id} className="border-b border-outline-variant/50 hover:bg-surface-container/50 transition-colors">
+                      <tr key={tx.id} className="border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
                         <td className="px-5 py-3 text-on-surface-variant whitespace-nowrap">
                           {new Date(tx.created_at).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' })}
                         </td>
                         <td className="px-5 py-3">
                           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold ${
-                            isIn
-                              ? 'bg-secondary-container text-on-secondary-container'
-                              : 'bg-tertiary-container text-on-tertiary-container'
+                            isIn ? 'bg-secondary-container text-on-secondary-container' : 'bg-primary-container text-primary'
                           }`}>
                             <span className="material-symbols-outlined text-[12px]">{isIn ? 'arrow_downward' : 'arrow_upward'}</span>
                             {typeLabel[tx.type] ?? tx.type}
@@ -186,7 +184,7 @@ export default async function AdminPage() {
                         </td>
                         <td className="px-5 py-3">
                           {tx.deal ? (
-                            <Link href={`/deals/${tx.deal.id}`} className="hover:text-secondary hover:underline font-semibold text-on-surface truncate max-w-[200px] block">
+                            <Link href={`/deals/${tx.deal.id}`} className="hover:text-primary hover:underline font-semibold text-on-surface truncate max-w-[200px] block">
                               {tx.deal.title}
                             </Link>
                           ) : (
@@ -207,33 +205,33 @@ export default async function AdminPage() {
         </div>
 
         {/* All deals by status */}
-        <h2 className="text-[20px] font-bold text-on-surface mb-4">Deal ทั้งหมด ({deals.length})</h2>
-        <div className="space-y-8">
+        <h2 className="text-[18px] font-extrabold text-on-surface mb-4">Deal ทั้งหมด ({deals.length})</h2>
+        <div className="space-y-6">
           {byStatus.map(({ status, deals: groupDeals }) => (
             <section key={status}>
               <div className="flex items-center gap-2 mb-3">
                 <StatusPill status={status as DealStatus} />
-                <span className="text-[13px] text-on-surface-variant font-semibold">({groupDeals.length})</span>
+                <span className="text-[12px] text-on-surface-variant font-bold">({groupDeals.length})</span>
               </div>
               <div className="space-y-3">
                 {groupDeals.map((deal: any) => (
                   <Link key={deal.id} href={`/deals/${deal.id}`}>
-                    <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm hover:border-secondary hover:shadow-md transition-all cursor-pointer">
+                    <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-card hover:border-primary/20 hover:shadow-card-hover transition-all cursor-pointer">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-on-surface truncate">{deal.title}</p>
-                          <p className="text-[12px] font-mono text-on-surface-variant mt-0.5">#{deal.id.slice(0, 8).toUpperCase()}</p>
+                          <p className="text-[11px] font-mono text-on-surface-variant mt-0.5">#{deal.id.slice(0, 8).toUpperCase()}</p>
                           <div className="flex items-center gap-3 mt-2 text-[12px] text-on-surface-variant">
-                            <span>Seller: <span className="font-semibold text-on-surface">{deal.seller?.name || '-'}</span></span>
+                            <span>Seller: <span className="font-bold text-on-surface">{deal.seller?.name || '-'}</span></span>
                             <span>·</span>
-                            <span>Buyer: <span className="font-semibold text-on-surface">{deal.buyer?.name || <span className="italic">รอ Buyer</span>}</span></span>
+                            <span>Buyer: <span className="font-bold text-on-surface">{deal.buyer?.name || '(รอ Buyer)'}</span></span>
                           </div>
                           {deal.dispute && (
-                            <p className="text-[12px] text-error mt-1 truncate">⚠ {deal.dispute.reason}</p>
+                            <p className="text-[12px] text-error mt-1 truncate font-semibold">⚠ {deal.dispute.reason}</p>
                           )}
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <p className="font-bold text-[16px] text-on-surface">{formatCurrency(deal.total_amount)}</p>
+                          <p className="font-extrabold text-[16px] text-on-surface">{formatCurrency(deal.total_amount)}</p>
                           <p className="text-[11px] text-on-surface-variant mt-1">
                             {new Date(deal.created_at).toLocaleDateString('th-TH')}
                           </p>

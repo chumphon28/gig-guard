@@ -67,31 +67,33 @@ export default function NewDealPage() {
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const inputClass = "w-full border border-outline-variant rounded-xl px-4 py-3 text-[15px] focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors bg-surface-container-low"
+
   if (createdId) {
     const link = typeof window !== 'undefined' ? `${window.location.origin}/deals/${createdId}/join` : ''
     return (
       <div className="min-h-screen bg-background">
         <Header userName={userName} />
         <main className="pt-24 px-4 max-w-lg mx-auto">
-          <div className="bg-white border border-outline-variant rounded-2xl p-8 shadow-sm text-center">
-            <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="material-symbols-outlined text-secondary text-[36px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+          <div className="bg-white border border-outline-variant rounded-2xl p-8 shadow-card text-center">
+            <div className="w-16 h-16 green-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+              <span className="material-symbols-outlined text-white text-[32px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
             </div>
-            <h2 className="text-[24px] font-bold text-on-surface mb-2">สร้าง Deal สำเร็จ!</h2>
+            <h2 className="text-[24px] font-extrabold text-on-surface mb-2">สร้าง Deal สำเร็จ!</h2>
             <p className="text-on-surface-variant mb-6">ส่งลิงก์นี้ให้ Buyer เพื่อเข้าร่วม Deal</p>
-            <div className="bg-surface-container rounded-xl p-4 mb-4 text-[14px] font-mono text-on-surface break-all">
+            <div className="bg-surface-container rounded-xl p-4 mb-4 text-[13px] font-mono text-on-surface break-all border border-outline-variant">
               {link}
             </div>
             <button
               onClick={copyLink}
-              className="w-full bg-secondary text-on-secondary py-3 rounded-xl font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-2"
+              className="w-full green-gradient text-white py-3.5 rounded-xl font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-sm"
             >
               <span className="material-symbols-outlined text-[20px]">{copied ? 'check' : 'content_copy'}</span>
               {copied ? 'คัดลอกแล้ว!' : 'คัดลอกลิงก์'}
             </button>
             <button
               onClick={() => router.push(`/deals/${createdId}`)}
-              className="w-full mt-3 border border-outline text-on-surface py-3 rounded-xl font-semibold hover:bg-surface-container transition-all"
+              className="w-full mt-3 border border-outline-variant text-on-surface py-3.5 rounded-xl font-bold hover:bg-surface-container transition-all"
             >
               ดู Deal
             </button>
@@ -104,83 +106,68 @@ export default function NewDealPage() {
   return (
     <div className="min-h-screen bg-background pb-8">
       <Header userName={userName} />
-      <main className="pt-24 px-4 md:px-6 max-w-[1280px] mx-auto">
-        <h1 className="text-[32px] font-bold text-on-surface mb-8">สร้าง Escrow Deal</h1>
 
+      {/* Page header */}
+      <div className="brand-gradient pt-16">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-8">
+          <p className="text-white/70 text-[12px] font-bold uppercase tracking-widest mb-1">New Deal</p>
+          <h1 className="text-[26px] font-extrabold text-white">สร้าง Escrow Deal</h1>
+          <p className="text-white/70 text-[14px] mt-1">ซื้อ-ขายปลอดภัย ด้วยระบบ Escrow</p>
+        </div>
+      </div>
+
+      <main className="px-4 md:px-6 max-w-[1280px] mx-auto pt-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {/* Form */}
           <div className="md:col-span-7">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {error && (
-                <div className="bg-error-container text-on-error-container rounded-xl px-4 py-3 text-[14px]">
+                <div className="bg-error-container text-on-error-container rounded-xl px-4 py-3 text-[14px] flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[18px]">error</span>
                   {error}
                 </div>
               )}
 
               {/* Section 1 */}
-              <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-sm">
-                <h3 className="text-[18px] font-semibold text-on-surface mb-4 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-on-surface-variant">description</span>
+              <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-card">
+                <h3 className="text-[15px] font-bold text-on-surface mb-4 flex items-center gap-2">
+                  <div className="w-7 h-7 bg-primary-container rounded-lg flex items-center justify-center">
+                    <span className="material-symbols-outlined text-primary text-[16px]">description</span>
+                  </div>
                   ชื่อและรายละเอียด
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">ชื่อรายการ *</label>
-                    <input
-                      type="text"
-                      value={title}
-                      onChange={e => setTitle(e.target.value)}
-                      required
-                      placeholder="เช่น ขายรถมือสอง Toyota Yaris 2020"
-                      className="w-full border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary"
-                    />
+                    <label className="block text-[12px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">ชื่อรายการ *</label>
+                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} required placeholder="เช่น ขายรถมือสอง Toyota Yaris 2020" className={inputClass} />
                   </div>
                   <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">รายละเอียด (ไม่บังคับ)</label>
-                    <textarea
-                      value={description}
-                      onChange={e => setDescription(e.target.value)}
-                      rows={3}
-                      placeholder="รายละเอียดเพิ่มเติม..."
-                      className="w-full border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary resize-none"
-                    />
+                    <label className="block text-[12px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">รายละเอียด (ไม่บังคับ)</label>
+                    <textarea value={description} onChange={e => setDescription(e.target.value)} rows={3} placeholder="รายละเอียดเพิ่มเติม..." className={`${inputClass} resize-none`} />
                   </div>
                 </div>
               </div>
 
               {/* Section 2 */}
-              <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-sm">
-                <h3 className="text-[18px] font-semibold text-on-surface mb-4 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-on-surface-variant">payments</span>
+              <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-card">
+                <h3 className="text-[15px] font-bold text-on-surface mb-4 flex items-center gap-2">
+                  <div className="w-7 h-7 bg-secondary-container rounded-lg flex items-center justify-center">
+                    <span className="material-symbols-outlined text-on-secondary-container text-[16px]">payments</span>
+                  </div>
                   ราคา
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">ยอดรวมทั้งหมด (บาท) *</label>
-                    <input
-                      type="number"
-                      value={totalAmount}
-                      onChange={e => setTotalAmount(e.target.value)}
-                      required
-                      min="1"
-                      placeholder="0.00"
-                      className="w-full border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary"
-                    />
+                    <label className="block text-[12px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">ยอดรวมทั้งหมด (บาท) *</label>
+                    <input type="number" value={totalAmount} onChange={e => setTotalAmount(e.target.value)} required min="1" placeholder="0.00" className={inputClass} />
                   </div>
                   <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">
-                      % มัดจำ: <span className="text-secondary">{depositPercent}%</span>
-                    </label>
-                    <input
-                      type="range"
-                      min={10}
-                      max={50}
-                      step={5}
-                      value={depositPercent}
-                      onChange={e => setDepositPercent(Number(e.target.value))}
-                      className="w-full accent-secondary"
-                    />
-                    <div className="flex justify-between text-[12px] text-on-surface-variant mt-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-[12px] font-bold text-on-surface-variant uppercase tracking-wider">% มัดจำ</label>
+                      <span className="text-[15px] font-extrabold text-primary">{depositPercent}%</span>
+                    </div>
+                    <input type="range" min={10} max={50} step={5} value={depositPercent} onChange={e => setDepositPercent(Number(e.target.value))} className="w-full accent-primary" />
+                    <div className="flex justify-between text-[11px] text-on-surface-variant mt-1">
                       <span>10%</span><span>50%</span>
                     </div>
                   </div>
@@ -188,44 +175,25 @@ export default function NewDealPage() {
               </div>
 
               {/* Section 3 */}
-              <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-sm">
-                <h3 className="text-[18px] font-semibold text-on-surface mb-4 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-on-surface-variant">account_balance</span>
+              <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-card">
+                <h3 className="text-[15px] font-bold text-on-surface mb-4 flex items-center gap-2">
+                  <div className="w-7 h-7 bg-tertiary-container rounded-lg flex items-center justify-center">
+                    <span className="material-symbols-outlined text-on-tertiary-container text-[16px]">account_balance</span>
+                  </div>
                   ข้อมูลบัญชีรับโอน
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">ธนาคาร *</label>
-                    <input
-                      type="text"
-                      value={bankName}
-                      onChange={e => setBankName(e.target.value)}
-                      required
-                      placeholder="เช่น กสิกรไทย, SCB, กรุงเทพ"
-                      className="w-full border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary"
-                    />
+                    <label className="block text-[12px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">ธนาคาร *</label>
+                    <input type="text" value={bankName} onChange={e => setBankName(e.target.value)} required placeholder="เช่น กสิกรไทย, SCB, กรุงเทพ" className={inputClass} />
                   </div>
                   <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">เลขบัญชี *</label>
-                    <input
-                      type="text"
-                      value={accountNumber}
-                      onChange={e => setAccountNumber(e.target.value)}
-                      required
-                      placeholder="xxx-x-xxxxx-x"
-                      className="w-full border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary"
-                    />
+                    <label className="block text-[12px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">เลขบัญชี *</label>
+                    <input type="text" value={accountNumber} onChange={e => setAccountNumber(e.target.value)} required placeholder="xxx-x-xxxxx-x" className={inputClass} />
                   </div>
                   <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">ชื่อบัญชี *</label>
-                    <input
-                      type="text"
-                      value={accountName}
-                      onChange={e => setAccountName(e.target.value)}
-                      required
-                      placeholder="ชื่อเจ้าของบัญชี"
-                      className="w-full border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary"
-                    />
+                    <label className="block text-[12px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">ชื่อบัญชี *</label>
+                    <input type="text" value={accountName} onChange={e => setAccountName(e.target.value)} required placeholder="ชื่อเจ้าของบัญชี" className={inputClass} />
                   </div>
                 </div>
               </div>
@@ -233,7 +201,7 @@ export default function NewDealPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary text-on-primary py-4 rounded-xl font-semibold text-[16px] hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+                className="w-full brand-gradient text-white py-4 rounded-xl font-extrabold text-[15px] hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-sm"
               >
                 <span className="material-symbols-outlined">link</span>
                 {loading ? 'กำลังสร้าง...' : 'สร้าง Deal และรับ Link'}
@@ -243,23 +211,25 @@ export default function NewDealPage() {
 
           {/* Summary sticky */}
           <div className="md:col-span-5">
-            <div className="sticky top-24 bg-white border border-outline-variant rounded-2xl p-6 shadow-sm">
-              <h3 className="text-[18px] font-semibold text-on-surface mb-4 flex items-center gap-2">
-                <span className="material-symbols-outlined text-on-surface-variant">receipt</span>
+            <div className="sticky top-24 bg-white border border-outline-variant rounded-2xl p-6 shadow-card">
+              <h3 className="text-[15px] font-bold text-on-surface mb-4 flex items-center gap-2">
+                <div className="w-7 h-7 bg-primary-container rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-[16px]">receipt</span>
+                </div>
                 สรุป
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between text-[14px]">
                   <span className="text-on-surface-variant">ยอดรวม</span>
-                  <span className="font-semibold text-on-surface">{formatCurrency(Number(totalAmount) || 0)}</span>
+                  <span className="font-bold text-on-surface">{formatCurrency(Number(totalAmount) || 0)}</span>
                 </div>
                 <div className="flex justify-between text-[14px]">
                   <span className="text-on-surface-variant">มัดจำ ({depositPercent}%)</span>
-                  <span className="font-semibold text-secondary">{formatCurrency(amounts.depositAmount)}</span>
+                  <span className="font-bold text-secondary">{formatCurrency(amounts.depositAmount)}</span>
                 </div>
                 <div className="flex justify-between text-[14px]">
                   <span className="text-on-surface-variant">ยอดที่เหลือ</span>
-                  <span className="font-semibold text-on-surface">{formatCurrency(amounts.remainingAmount)}</span>
+                  <span className="font-bold text-on-surface">{formatCurrency(amounts.remainingAmount)}</span>
                 </div>
                 <div className="border-t border-outline-variant pt-3 flex justify-between text-[14px]">
                   <span className="text-on-surface-variant">Fee GigGuard (1%)</span>
@@ -267,10 +237,10 @@ export default function NewDealPage() {
                 </div>
               </div>
 
-              <div className="mt-6 bg-surface-container rounded-xl p-4">
-                <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
-                  <p className="text-[13px] text-on-surface-variant">
+              <div className="mt-5 bg-primary-container rounded-xl p-4 border border-primary/10">
+                <div className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-primary text-[18px] mt-0.5 flex-shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
+                  <p className="text-[13px] text-on-surface-variant leading-relaxed">
                     ระบบนี้เป็นแค่ตัวกลางบันทึกสถานะ การโอนเงินจริงทำผ่านบัญชีธนาคารที่ระบุ
                   </p>
                 </div>

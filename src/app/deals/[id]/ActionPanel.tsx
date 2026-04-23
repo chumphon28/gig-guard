@@ -45,8 +45,8 @@ export default function ActionPanel({
   const { status } = deal
 
   return (
-    <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-sm space-y-4">
-      <h3 className="text-[16px] font-bold text-on-surface">
+    <div className="bg-white border border-outline-variant rounded-2xl p-6 shadow-card space-y-4">
+      <h3 className="text-[15px] font-extrabold text-on-surface">
         {role === 'guest' ? 'ข้อมูล Deal' : role === 'admin' ? 'แผงผู้ดูแล' : 'การดำเนินการ'}
       </h3>
 

@@ -3,7 +3,7 @@ import type { DealStatus } from '@/lib/types'
 
 export default function StatusPill({ status }: { status: DealStatus }) {
   return (
-    <span className={`px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-wider ${STATUS_STYLES[status]}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${STATUS_STYLES[status]}`}>
       {STATUS_LABELS[status]}
     </span>
   )

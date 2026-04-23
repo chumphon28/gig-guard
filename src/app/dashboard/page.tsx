@@ -34,78 +34,107 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <Header userName={profile?.name} isAdmin={profile?.is_admin} />
 
-      <main className="pt-20 px-4 md:px-6 max-w-[1280px] mx-auto">
-        {/* Stats bento */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 mb-8">
-          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm">
-            <p className="text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Active Deals</p>
-            <p className="text-[32px] font-bold text-on-surface mt-1">{activeDeals.length}</p>
-          </div>
-          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm">
-            <p className="text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">เสร็จสิ้น</p>
-            <p className="text-[32px] font-bold text-secondary mt-1">{completedDeals.length}</p>
-          </div>
-          <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm">
-            <p className="text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">มูลค่ารวม</p>
-            <p className="text-[24px] font-bold text-on-surface mt-1">{formatCurrency(totalValue)}</p>
-          </div>
-          <div className="bg-primary-container rounded-2xl p-5 shadow-sm">
-            <p className="text-[12px] font-semibold text-on-primary-container uppercase tracking-wider">ยินดีต้อนรับ</p>
-            <p className="text-[18px] font-bold text-on-primary-container mt-1 truncate">{profile?.name || 'User'}</p>
+      <main className="pt-16">
+        {/* Hero banner */}
+        <div className="brand-gradient">
+          <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-8">
+            <p className="text-white/70 text-[13px] font-semibold uppercase tracking-widest mb-1">Dashboard</p>
+            <h1 className="text-[26px] md:text-[30px] font-extrabold text-white">
+              สวัสดี, {profile?.name || 'User'} 👋
+            </h1>
+            <p className="text-white/70 text-[14px] mt-1">จัดการ Escrow Deals ของคุณ</p>
+
+            {/* Stat cards inside hero */}
+            <div className="grid grid-cols-3 gap-3 mt-6">
+              <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+                <p className="text-white/70 text-[11px] font-bold uppercase tracking-wider">Active</p>
+                <p className="text-[28px] font-extrabold text-white mt-0.5">{activeDeals.length}</p>
+              </div>
+              <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+                <p className="text-white/70 text-[11px] font-bold uppercase tracking-wider">เสร็จสิ้น</p>
+                <p className="text-[28px] font-extrabold text-secondary-fixed-dim mt-0.5">{completedDeals.length}</p>
+              </div>
+              <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+                <p className="text-white/70 text-[11px] font-bold uppercase tracking-wider">มูลค่ารวม</p>
+                <p className="text-[18px] font-extrabold text-white mt-0.5 leading-tight">{formatCurrency(totalValue)}</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Seller Deals */}
-        <section className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[24px] font-semibold text-on-surface">
-              <span className="material-symbols-outlined text-[22px] align-middle mr-2">storefront</span>
-              ฉันเป็น Seller ({sellerDeals.length})
-            </h2>
-            <Link
-              href="/deals/new"
-              className="flex items-center gap-1 bg-primary text-on-primary px-4 py-2 rounded-lg text-[14px] font-semibold hover:opacity-90 transition-all"
-            >
-              <span className="material-symbols-outlined text-[18px]">add</span>
-              สร้าง Deal
-            </Link>
-          </div>
-          {sellerDeals.length === 0 ? (
-            <div className="bg-white border border-outline-variant rounded-2xl p-8 text-center text-on-surface-variant">
-              <span className="material-symbols-outlined text-[48px] text-outline mb-3 block">handshake</span>
-              <p className="font-semibold">ยังไม่มี Deal ที่คุณสร้าง</p>
-              <Link href="/deals/new" className="text-secondary font-semibold text-[14px] mt-2 block hover:underline">
-                + สร้าง Deal แรกของคุณ
+        <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-6">
+          {/* Seller Deals */}
+          <section className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-primary-container rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-[18px]">storefront</span>
+                </div>
+                <h2 className="text-[18px] font-bold text-on-surface">
+                  ฉันเป็น Seller
+                  <span className="ml-2 px-2 py-0.5 bg-primary-container text-primary text-[12px] font-bold rounded-full">{sellerDeals.length}</span>
+                </h2>
+              </div>
+              <Link
+                href="/deals/new"
+                className="flex items-center gap-1.5 green-gradient text-white px-4 py-2 rounded-full text-[13px] font-bold hover:opacity-90 transition-all shadow-sm"
+              >
+                <span className="material-symbols-outlined text-[16px]">add</span>
+                สร้าง Deal
               </Link>
             </div>
-          ) : (
-            <div className="space-y-3">
-              {sellerDeals.map(deal => (
-                <DealCard key={deal.id} deal={deal} role="seller" />
-              ))}
-            </div>
-          )}
-        </section>
+            {sellerDeals.length === 0 ? (
+              <div className="bg-white border border-outline-variant rounded-2xl p-10 text-center shadow-card">
+                <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <span className="material-symbols-outlined text-[36px] text-outline">handshake</span>
+                </div>
+                <p className="font-bold text-on-surface text-[16px]">ยังไม่มี Deal ที่คุณสร้าง</p>
+                <p className="text-on-surface-variant text-[14px] mt-1 mb-4">เริ่มสร้าง Escrow Deal แรกของคุณได้เลย</p>
+                <Link
+                  href="/deals/new"
+                  className="inline-flex items-center gap-1.5 green-gradient text-white px-5 py-2.5 rounded-full text-[14px] font-bold hover:opacity-90 transition-all shadow-sm"
+                >
+                  <span className="material-symbols-outlined text-[16px]">add</span>
+                  สร้าง Deal แรก
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {sellerDeals.map(deal => (
+                  <DealCard key={deal.id} deal={deal} role="seller" />
+                ))}
+              </div>
+            )}
+          </section>
 
-        {/* Buyer Deals */}
-        <section>
-          <h2 className="text-[24px] font-semibold text-on-surface mb-4">
-            <span className="material-symbols-outlined text-[22px] align-middle mr-2">shopping_bag</span>
-            ฉันเป็น Buyer ({buyerDeals.length})
-          </h2>
-          {buyerDeals.length === 0 ? (
-            <div className="bg-white border border-outline-variant rounded-2xl p-8 text-center text-on-surface-variant">
-              <span className="material-symbols-outlined text-[48px] text-outline mb-3 block">receipt_long</span>
-              <p className="font-semibold">ยังไม่มี Deal ที่คุณเข้าร่วม</p>
+          {/* Buyer Deals */}
+          <section>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 bg-secondary-container rounded-lg flex items-center justify-center">
+                <span className="material-symbols-outlined text-on-secondary-container text-[18px]">shopping_bag</span>
+              </div>
+              <h2 className="text-[18px] font-bold text-on-surface">
+                ฉันเป็น Buyer
+                <span className="ml-2 px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[12px] font-bold rounded-full">{buyerDeals.length}</span>
+              </h2>
             </div>
-          ) : (
-            <div className="space-y-3">
-              {buyerDeals.map(deal => (
-                <DealCard key={deal.id} deal={deal} role="buyer" />
-              ))}
-            </div>
-          )}
-        </section>
+            {buyerDeals.length === 0 ? (
+              <div className="bg-white border border-outline-variant rounded-2xl p-10 text-center shadow-card">
+                <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <span className="material-symbols-outlined text-[36px] text-outline">receipt_long</span>
+                </div>
+                <p className="font-bold text-on-surface text-[16px]">ยังไม่มี Deal ที่คุณเข้าร่วม</p>
+                <p className="text-on-surface-variant text-[14px] mt-1">รอรับลิงก์จาก Seller เพื่อเข้าร่วม Deal</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {buyerDeals.map(deal => (
+                  <DealCard key={deal.id} deal={deal} role="buyer" />
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
       </main>
 
       <BottomNav />

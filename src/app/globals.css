@@ -7,7 +7,35 @@
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@layer utilities {
+  .brand-gradient {
+    background: linear-gradient(135deg, #0f3bb5 0%, #1a56db 50%, #2563eb 100%);
+  }
+
+  .brand-gradient-text {
+    background: linear-gradient(135deg, #1a56db, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .green-gradient {
+    background: linear-gradient(135deg, #059669 0%, #0acf83 100%);
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, #f0f4ff 0%, #e1e8ff 50%, #f0f4ff 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
