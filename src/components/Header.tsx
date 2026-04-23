@@ -18,22 +18,12 @@ export default function Header({ userName, isAdmin }: { userName?: string; isAdm
   return (
     <header className="bg-white fixed w-full top-0 z-50 border-b border-outline-variant" style={{ boxShadow: '0 1px 0 0 #d4dfff' }}>
       <div className="flex justify-between items-center w-full px-6 h-16 max-w-[1280px] mx-auto">
-        {/* Logo */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl brand-gradient flex items-center justify-center shadow-sm">
-            <span
-              className="material-symbols-outlined text-white text-[20px]"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              shield_with_heart
-            </span>
-          </div>
-          <Link href="/dashboard" className="text-[17px] font-extrabold tracking-tight text-on-surface">
-            GigGuard<span className="text-primary"> DAO</span>
-          </Link>
-        </div>
-
-        {/* Actions */}
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <img src="/logo.png" alt="NONG POMz" className="h-14 w-auto" />
+          <span className="text-lg font-extrabold tracking-tight text-on-surface hidden md:block">
+            NONG POMz
+          </span>
+        </Link>
         <div className="flex items-center gap-3">
           {userName && (
             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-full">

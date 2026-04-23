@@ -39,15 +39,8 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
-            <span
-              className="material-symbols-outlined text-white text-[28px]"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              shield_with_heart
-            </span>
-          </div>
-          <h1 className="text-[32px] font-bold tracking-tight text-on-surface">GigGuard DAO</h1>
+          <img src="/logo.png" alt="NONG POMz" className="h-28 w-auto mx-auto mb-2" />
+          <h1 className="text-[32px] font-bold tracking-tight text-on-surface">NONG POMz</h1>
           <p className="text-on-surface-variant mt-1">The Trust Layer for P2P Transactions</p>
         </div>
 

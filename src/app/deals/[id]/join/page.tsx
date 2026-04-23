@@ -36,12 +36,8 @@ export default async function JoinDealPage({ params }: { params: { id: string } 
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-6">
-          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center mx-auto mb-3">
-            <span className="material-symbols-outlined text-white text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-              shield_with_heart
-            </span>
-          </div>
-          <p className="text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">GigGuard Escrow</p>
+          <img src="/logo.png" alt="NONG POMz" className="h-[72px] w-auto mx-auto mb-2" />
+          <p className="text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">NONG POMz Escrow</p>
         </div>
 
         <div className="bg-white border border-outline-variant rounded-2xl p-8 shadow-sm">

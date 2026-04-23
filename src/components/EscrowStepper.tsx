@@ -3,10 +3,10 @@ import type { DealStatus } from '@/lib/types'
 const STEPS: { key: DealStatus; label: string; icon: string }[] = [
   { key: 'created', label: 'สร้าง Deal', icon: 'description' },
   { key: 'awaiting_deposit', label: 'Buyer เข้าร่วม', icon: 'person_add' },
-  { key: 'pending_confirmation', label: 'ส่งมัดจำ', icon: 'payments' },
-  { key: 'confirmed', label: 'ยืนยันมัดจำ', icon: 'check_circle' },
+  { key: 'pending_confirmation', label: 'โอนเข้ากระเป๋ากลาง', icon: 'wallet' },
+  { key: 'confirmed', label: 'ยืนยันแล้ว', icon: 'check_circle' },
   { key: 'shipped', label: 'จัดส่ง', icon: 'local_shipping' },
-  { key: 'releasing_deposit', label: 'โอนเงิน', icon: 'account_balance' },
+  { key: 'releasing_deposit', label: 'โอนเงินให้ผู้ขาย', icon: 'account_balance' },
   { key: 'completed', label: 'เสร็จสิ้น', icon: 'lock_open' },
 ]
 
