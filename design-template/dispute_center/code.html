@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dispute Resolution Center | GigGuard DAO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#0b1c30",
+                        "outline": "#76777d",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006c49",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#002113",
+                        "background": "#f8f9ff",
+                        "surface-tint": "#565e74",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#dae2fd",
+                        "on-background": "#0b1c30",
+                        "on-tertiary-container": "#3980f4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-container": "#001a42",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-container": "#00714d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-dim": "#cbdbf5",
+                        "on-tertiary-fixed": "#001a42",
+                        "primary-container": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-container": "#6cf8bb",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "primary": "#000000",
+                        "outline-variant": "#c6c6cd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "inverse-surface": "#213145",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "secondary-fixed": "#6ffbbe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-lg": "48px",
+                        "gutter": "24px",
+                        "margin": "32px",
+                        "base": "8px",
+                        "stack-md": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-active {
+            background: #006c49;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center w-full px-6 h-16">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="professional male headshot for user profile with soft studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAiuVpd-0Z1j_qLNuVM-6VXuDSodQ9nIu_M8s7TvuNSQp5o_aw_3XMPU6AuIQxyVC9hJS9Nfwdho7bWmFmswLFKyfiErgrbLrcOoxDveQ4IRDbwVsjUAx2Xcj7WMV91As7LwejYjxPEXKeNmNOrOyHcHIMzMB7kIlQHmfHLn2QuS6Tfmi8ngT3_SGsm38ajreO369bejZKmxUB3h7a6AophR5UUAwOu3409FMsV8hkG4A4oMm_e8J5vecewWPSFCIR4B31SMzgbH8"/>
+</div>
+<h1 class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-slate-50 font-manrope antialiased">GigGuard DAO</h1>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-2 rounded-lg font-label-md" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-2 rounded-lg font-label-md" href="#">Orders</a>
+<a class="text-slate-900 dark:text-slate-50 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-2 rounded-lg font-label-md" href="#">Disputes</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-2 rounded-lg font-label-md" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-900 dark:text-slate-50">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin py-stack-lg">
+<!-- Dispute Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-stack-md gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="gavel">gavel</span>
+                        JURY REVIEW REQUIRED
+                    </span>
+<span class="text-outline text-label-sm">Case #DG-88219</span>
+</div>
+<h2 class="font-headline-md text-on-surface">Dispute: Not as Described</h2>
+<p class="text-body-md text-on-surface-variant max-w-2xl">Client claims the delivered high-fidelity UI design prototype does not match the aesthetic or functional requirements specified in the project brief.</p>
+</div>
+<!-- Porm-Verified Badge -->
+<div class="flex items-center gap-3 bg-surface-container-low p-3 rounded-xl border border-outline-variant/30">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<p class="text-label-md text-on-surface">Porm-Verified</p>
+<p class="text-label-sm text-outline">Evidence Authenticated</p>
+</div>
+</div>
+</div>
+<!-- Escrow Lifecycle -->
+<div class="bg-white rounded-2xl border border-outline-variant p-gutter mb-stack-md">
+<div class="flex justify-between items-center relative">
+<div class="absolute h-[2px] bg-slate-100 left-0 right-0 top-1/2 -translate-y-1/2 z-0"></div>
+<div class="absolute h-[2px] bg-secondary left-0 w-2/3 top-1/2 -translate-y-1/2 z-0"></div>
+<div class="relative z-10 flex flex-col items-center gap-2 bg-white px-2">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+</div>
+<span class="text-label-sm text-on-surface">Deposited</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 bg-white px-2">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+</div>
+<span class="text-label-sm text-on-surface">Submitted</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 bg-white px-2">
+<div class="w-8 h-8 rounded-full border-4 border-secondary bg-white text-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="gavel">gavel</span>
+</div>
+<span class="text-label-sm text-secondary font-bold">Review</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 bg-white px-2 opacity-40">
+<div class="w-8 h-8 rounded-full border-2 border-slate-300 bg-white text-slate-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="lock_open">lock_open</span>
+</div>
+<span class="text-label-sm text-slate-500">Released</span>
+</div>
+</div>
+</div>
+<!-- Main Content Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Comparison View -->
+<div class="lg:col-span-8 space-y-gutter">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Original Listing -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-on-surface">Original Brief</h3>
+<span class="text-label-sm text-outline px-2 py-1 bg-surface-container-low rounded">Reference Image</span>
+</div>
+<div class="aspect-video rounded-xl overflow-hidden border border-outline-variant group relative">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500" data-alt="clean minimal UI design mockup of a mobile banking app with blue gradients and crisp typography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwsAyiJreoesw_wRw7Py0tEMbgSMrD8fOw8nfFzfLKVKg1PMPYzDD714qM1kGC8u8uRBgUsZianZK7UwHgyaDPO4KJcfNQFEN7C8dwehE-YATIPkw9gdDBHcBElRRlGlN6phRWNUY4K9XPTjZKz7KEFq2y-s_EIrvP9uea_4aWwLt7qP656Q3ghdO6qlqr8UNRt25Dc3A4NB0D5ZagMEUfiMDRb_n7-eGRIn2RwjrVUSe989TUGq4rU6rc9igV-zP3E-SFAoZVhSo"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white/90 text-on-surface px-4 py-2 rounded-full font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span> View Fullscreen
+                                </button>
+</div>
+</div>
+</div>
+<!-- Evidence -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-on-surface">Delivered Work</h3>
+<span class="text-label-sm text-error px-2 py-1 bg-error-container rounded">Evidence Uploaded</span>
+</div>
+<div class="aspect-video rounded-xl overflow-hidden border-2 border-error/30 group relative">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500" data-alt="cluttered and poorly designed software dashboard with inconsistent colors and dense text layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1bZuHUrL5L6UalDz6E2q6U6Pow_uOHUlumvw8C90Yinq-US_QJ5Ng72WbAmYRaNBs5oNXC9Li_MgSUnYvG52xNaMyAg-iWWhxHWQjDzoVX4y0Ht5TYnkL4O-ShjBb8bRJlEOFaWhjuPW2X3QHE8XQoNfe4xIgHHWMJLQOXoEpmXj_yn8c89QsNil5FtL_uwnQxOcHEDNWqLjjpCi-H3FfIZqT7oVfAUf-5ynAa83CHp5h-WgtcHTW9LDNUmTIdxYFtD8RnTQdbUA"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white/90 text-on-surface px-4 py-2 rounded-full font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span> View Fullscreen
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Case Details Card -->
+<div class="bg-white border border-outline-variant rounded-2xl p-gutter shadow-sm">
+<h3 class="font-headline-sm text-on-surface mb-4">Detailed Statement</h3>
+<div class="space-y-4 text-body-md text-on-surface-variant">
+<p class="border-l-4 border-error pl-4 italic">"The designer promised a premium Fintech look similar to the reference image. What I received looks like a legacy internal tool from 2005. The typography is unreadable, and the 'Glassmorphism' effect was completely ignored. I've attempted to resolve this twice but the seller refuses to redo the core layout."</p>
+<div class="flex flex-wrap gap-2 pt-2">
+<div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg p-2 pr-4">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="description">description</span>
+<div class="text-label-sm">
+<p class="text-on-surface">brief_requirements.pdf</p>
+<p class="text-outline">1.2 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg p-2 pr-4">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="video_library">video_library</span>
+<div class="text-label-sm">
+<p class="text-on-surface">interaction_demo.mp4</p>
+<p class="text-outline">14.5 MB</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline / Chat -->
+<div class="space-y-4">
+<h3 class="font-headline-sm text-on-surface">Case Timeline</h3>
+<div class="space-y-6 relative before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100">
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center z-10 border-4 border-background">
+<span class="material-symbols-outlined text-[18px] text-on-surface" data-icon="person">person</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-xl p-4">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-on-surface">Alex (Client)</span>
+<span class="text-label-sm text-outline">Oct 24, 09:12 AM</span>
+</div>
+<p class="text-body-md text-on-surface-variant">This doesn't match the brief at all. The colors are wrong and the layout isn't modern.</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center z-10 border-4 border-background">
+<span class="material-symbols-outlined text-[18px] text-white" data-icon="brush">brush</span>
+</div>
+<div class="flex-1 bg-white border border-outline-variant rounded-xl p-4">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-on-surface">Sara (Seller)</span>
+<span class="text-label-sm text-outline">Oct 24, 11:45 AM</span>
+</div>
+<p class="text-body-md text-on-surface-variant">I followed the functional requirements. The 'aesthetic' is subjective. I am not doing a full redesign for free.</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center z-10 border-4 border-background">
+<span class="material-symbols-outlined text-[18px] text-amber-800" data-icon="gavel">gavel</span>
+</div>
+<div class="flex-1 bg-amber-50/50 border border-amber-100 rounded-xl p-4">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-amber-900 uppercase">System Notice</span>
+<span class="text-label-sm text-amber-700">Oct 25, 02:00 PM</span>
+</div>
+<p class="text-body-md text-amber-900 font-medium">Dispute escalated to Jury Review. Escrow locked.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Sidebar -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 space-y-gutter">
+<!-- Jury Voting Card -->
+<div class="bg-on-surface text-white rounded-2xl p-gutter shadow-xl border border-white/10">
+<h3 class="font-headline-sm mb-2">Cast Your Verdict</h3>
+<p class="text-label-md text-slate-300 mb-6">As a DAO Jury member, your vote will decide the distribution of <span class="text-white font-bold">$1,250.00 USDC</span>.</p>
+<div class="space-y-3">
+<button class="w-full py-4 px-4 rounded-xl bg-error text-white font-bold flex items-center justify-between hover:bg-error/90 transition-all active:scale-95 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="backspace">backspace</span>
+<span>Full Refund</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="w-full py-4 px-4 rounded-xl bg-white/10 text-white font-bold flex items-center justify-between hover:bg-white/20 transition-all active:scale-95 group border border-white/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="splitscreen">splitscreen</span>
+<span>Partial Refund (50/50)</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="w-full py-4 px-4 rounded-xl bg-secondary text-white font-bold flex items-center justify-between hover:bg-secondary/90 transition-all active:scale-95 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Release to Seller</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="mt-8 pt-6 border-t border-white/10 text-center">
+<p class="text-label-sm text-slate-400">Time remaining to vote</p>
+<p class="font-display-lg text-white tabular-nums tracking-normal mt-1">18:42:05</p>
+</div>
+</div>
+<!-- Voting Stats -->
+<div class="bg-white border border-outline-variant rounded-2xl p-gutter">
+<h4 class="font-label-md text-on-surface mb-4">Current Consensus</h4>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-label-sm mb-1">
+<span class="text-on-surface">Refund</span>
+<span class="text-outline">65%</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm mb-1">
+<span class="text-on-surface">Partial</span>
+<span class="text-outline">20%</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="bg-slate-400 h-full rounded-full" style="width: 20%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm mb-1">
+<span class="text-on-surface">Release</span>
+<span class="text-outline">15%</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_0_rgba(15,23,42,0.05)] flex justify-around items-center px-4 pb-6 pt-3 z-50">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 transition-all hover:text-slate-600" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 transition-all hover:text-slate-600" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-900 dark:text-slate-50 bg-slate-100 dark:bg-slate-800 rounded-xl px-3 py-1.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider">Disputes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 transition-all hover:text-slate-600" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+</body></html>

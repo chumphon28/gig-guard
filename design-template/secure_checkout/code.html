@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Secure Checkout &amp; Escrow Setup | GigGuard DAO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#0b1c30",
+                        "outline": "#76777d",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006c49",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#002113",
+                        "background": "#f8f9ff",
+                        "surface-tint": "#565e74",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#dae2fd",
+                        "on-background": "#0b1c30",
+                        "on-tertiary-container": "#3980f4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-container": "#001a42",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-container": "#00714d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-dim": "#cbdbf5",
+                        "on-tertiary-fixed": "#001a42",
+                        "primary-container": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-container": "#6cf8bb",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "primary": "#000000",
+                        "outline-variant": "#c6c6cd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "inverse-surface": "#213145",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "secondary-fixed": "#6ffbbe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-lg": "48px",
+                        "gutter": "24px",
+                        "margin": "32px",
+                        "base": "8px",
+                        "stack-md": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex justify-between items-center w-full px-6 h-16 docked full-width top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm fixed">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-50">arrow_back</span>
+</button>
+<h1 class="font-manrope antialiased text-lg font-extrabold tracking-tight text-slate-900 dark:text-slate-50">GigGuard DAO</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="minimalist avatar profile picture of a professional user in a clean corporate style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGZSum-7oXdsb98F8xEffhl0lTaVuDmJ-CWPW7XpbO2SvCETVmsEIjOuHU7QbKNlhH0VPvxkMdZsjmBqFjs4UeeVKZH_OeyH301B8N7lhiXfWGnOCPsPT27syUCyOgmmeWIhiUSf1Qxk4di-tPy0qotsqMOzCW37Ka_cpPj3Z6p_J5u5Gx2jnEeEfF7Elup8BKtoiI4XJrTpZjVUuZic1mI3rjVPEZnHLFmqSY_atLEPx-PQftHFNsugALBHcfQ9ygSSRmrxiUni8"/>
+</div>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-50">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin max-w-container-max mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Summary & Escrow Logic -->
+<div class="lg:col-span-7 space-y-stack-md">
+<!-- Page Title -->
+<div class="mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface">Secure Checkout</h2>
+<p class="font-body-md text-on-surface-variant">Review your transaction details and setup escrow protection.</p>
+</div>
+<!-- Item Summary Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gutter shadow-sm">
+<h3 class="font-label-md text-label-md text-outline uppercase mb-stack-sm">Order Summary</h3>
+<div class="flex gap-gutter items-start">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Service" class="w-full h-full object-cover" data-alt="modern office coworking space with warm lighting and professional tech environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCHqIzJAVdkayfMD1BRhNVo1b_XsNnP9--LodVF0sAfwQFHn8y38ZDyaIxWgUABLnlTMKloOJLqRG9LKdVIclRPisepec_cphoNMHUbtwHJsWPtp5aq6AjMKvLJUmcASxP5Qi5qOQM5P1uJEJ7AsXeID7DeB1PFMFo-SQgqdmBldSDVYiiuLCI2NVHFohqD31leQqMhLB4EqOMgD1x1mhT9S5rykDP9AvXa3Q25uQuYWlJChuzCej2rOxkEZdEhbmk4egCrsMdDjQ"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between">
+<h4 class="font-headline-sm text-headline-sm">Premium UI/UX System Design</h4>
+<span class="font-headline-sm text-headline-sm text-primary">2,450.00 USDC</span>
+</div>
+<p class="font-body-md text-on-surface-variant mt-1">Design System Development &amp; Documentation</p>
+<div class="mt-4 flex gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-surface-container-highest text-on-surface">
+<span class="material-symbols-outlined text-[14px] mr-1">history</span> 14 Days Delivery
+                                </span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[14px] mr-1">verified</span> Porm-Verified
+                                </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Escrow Protection Section (Special Section) -->
+<section class="bg-primary-container text-on-primary-fixed rounded-xl overflow-hidden shadow-lg border border-primary-container">
+<div class="p-gutter border-b border-on-primary-fixed-variant/20 bg-gradient-to-br from-primary-container to-slate-900">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-white">Escrow Protection</h3>
+<p class="text-on-primary-container font-label-sm">Powered by Nong Porm</p>
+</div>
+</div>
+</div>
+<div class="p-gutter space-y-6 bg-slate-900">
+<div class="flex items-start gap-4">
+<div class="mt-1">
+<span class="material-symbols-outlined text-secondary-fixed">description</span>
+</div>
+<div>
+<h4 class="font-label-md text-white">Smart Contract Release Conditions</h4>
+<p class="text-slate-400 font-body-md mt-1">Funds are held in a secure non-custodial vault and only released 24h after check-in or upon manual milestone approval.</p>
+</div>
+</div>
+<!-- Progress Stepper -->
+<div class="relative pt-4 pb-2">
+<div class="absolute left-[15px] top-[40px] bottom-[20px] w-0.5 bg-slate-700"></div>
+<div class="space-y-8 relative">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-md text-white">Funds Locked in Escrow</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center z-10 border-2 border-slate-600">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span>
+</div>
+<span class="font-label-md text-slate-400">Work Submission &amp; Review</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center z-10 border-2 border-slate-600">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span>
+</div>
+<span class="font-label-md text-slate-400">Released 24h after check-in</span>
+</div>
+</div>
+</div>
+<div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700 flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container">info</span>
+<p class="text-xs text-slate-300">GigGuard DAO ensures transparency. Funds can be disputed if deliverables don't match the agreed scope.</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Payment & Checkout Action -->
+<div class="lg:col-span-5">
+<div class="sticky top-24 space-y-stack-md">
+<!-- Payment Methods -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gutter shadow-sm">
+<h3 class="font-label-md text-label-md text-outline uppercase mb-gutter">Select Payment Method</h3>
+<div class="space-y-3">
+<!-- Crypto Option 1 -->
+<label class="relative flex items-center p-4 border-2 border-primary rounded-xl cursor-pointer bg-surface-container-low transition-all">
+<input checked="" class="hidden" name="payment" type="radio"/>
+<div class="flex-grow flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#2775ca] flex items-center justify-center">
+<span class="material-symbols-outlined text-white">monetization_on</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">USDC (ERC-20)</p>
+<p class="text-xs text-on-surface-variant">Stablecoin payment</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</label>
+<!-- Crypto Option 2 -->
+<label class="relative flex items-center p-4 border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-lowest transition-all">
+<input class="hidden" name="payment" type="radio"/>
+<div class="flex-grow flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#f3ba2f] flex items-center justify-center">
+<span class="material-symbols-outlined text-white">currency_bitcoin</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">WBTC</p>
+<p class="text-xs text-on-surface-variant">Bitcoin on Ethereum</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+</label>
+<!-- Crypto Option 3 -->
+<label class="relative flex items-center p-4 border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-lowest transition-all">
+<input class="hidden" name="payment" type="radio"/>
+<div class="flex-grow flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#627eea] flex items-center justify-center">
+<span class="material-symbols-outlined text-white">token</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">ETH (Base Network)</p>
+<p class="text-xs text-on-surface-variant">Fast, low gas fees</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+</label>
+</div>
+</section>
+<!-- Cost Breakdown -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gutter shadow-sm">
+<div class="space-y-3">
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-body-md">Subtotal</span>
+<span class="font-label-md">2,450.00 USDC</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="font-body-md">DAO Transaction Fee</span>
+<span class="material-symbols-outlined text-[16px] cursor-help" title="Standard protocol fee for secure escrow">help</span>
+</div>
+<span class="font-label-md">36.75 USDC (1.5%)</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-body-md">Network Gas Estimate</span>
+<span class="font-label-md">~$4.20 USDC</span>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-baseline">
+<span class="font-headline-sm">Total to Lock</span>
+<div class="text-right">
+<p class="font-headline-md text-primary">2,490.95 USDC</p>
+<p class="text-xs text-outline">≈ $2,490.95 USD</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-gutter bg-primary text-on-primary py-4 rounded-xl font-headline-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">lock</span>
+                            Confirm &amp; Lock Funds
+                        </button>
+<p class="text-center text-xs text-outline mt-4 px-4">
+                            By clicking confirm, you authorize the smart contract to interact with your wallet and hold the funds securely.
+                        </p>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed on Web, Visible on Mobile as per requirements) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_0_rgba(15,23,42,0.05)] z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 hover:text-slate-600" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-900 dark:text-slate-50 bg-slate-100 dark:bg-slate-800 rounded-xl px-3 py-1.5" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 hover:text-slate-600" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider mt-1">Disputes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 hover:text-slate-600" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-manrope text-[11px] font-semibold uppercase tracking-wider mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

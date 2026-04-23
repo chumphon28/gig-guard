@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#0b1c30",
+                    "outline": "#76777d",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary": "#006c49",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#002113",
+                    "background": "#f8f9ff",
+                    "surface-tint": "#565e74",
+                    "surface-variant": "#d3e4fe",
+                    "primary-fixed": "#dae2fd",
+                    "on-background": "#0b1c30",
+                    "on-tertiary-container": "#3980f4",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container": "#e5eeff",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-container-high": "#dce9ff",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-container": "#001a42",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-container": "#00714d",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-dim": "#cbdbf5",
+                    "on-tertiary-fixed": "#001a42",
+                    "primary-container": "#131b2e",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-container": "#6cf8bb",
+                    "surface": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "primary": "#000000",
+                    "outline-variant": "#c6c6cd",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed": "#d8e2ff",
+                    "surface-bright": "#f8f9ff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "inverse-surface": "#213145",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "secondary-fixed": "#6ffbbe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "12px",
+                    "stack-lg": "48px",
+                    "gutter": "24px",
+                    "margin": "32px",
+                    "base": "8px",
+                    "stack-md": "24px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "body-md": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "headline-sm": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background selection:bg-secondary/30">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-900 dark:text-slate-50 font-manrope antialiased shadow-sm border-b border-slate-200 dark:border-slate-800 flex justify-between items-center w-full px-6 h-16 sticky top-0 z-50">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary">shield_with_heart</span>
+<h1 class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-slate-50">GigGuard DAO</h1>
+</div>
+<nav class="hidden md:flex gap-margin items-center">
+<a class="text-slate-900 dark:text-slate-50 font-bold font-label-md" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-1 rounded font-label-md" href="#">Orders</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-1 rounded font-label-md" href="#">Disputes</a>
+</nav>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-100 p-2 rounded-full transition-all">notifications</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a user with a clean background for profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmBl8hs3tBj-aZihQ0hwPigyJS8aKUGtXe0GqqfZIDKgwWs6EezNL7SazrXVBM9VQMrF-brx8LEmn2v5nRnVsF7ZfK0V-AyT-4OWJe9ts-Ow_vmdePYEGV3T-WVNFhGISzhLclk-h9V8-QQQNqNp-5MrkSRLba_vblDW2xGArXbIBEXeGd9ZWwVgkbeuaJ4gNg_Xd7brwZ0KxrNoEjASg5DowqeiJvWXo_qZR0wp1r-Pdm194aO_WgUajaj1Hv7tG2Y82dQci80oU"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-gutter py-stack-lg space-y-stack-lg">
+<!-- Hero Gallery Section (Bento Inspired) -->
+<section class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[500px] rounded-xl overflow-hidden">
+<div class="md:col-span-2 md:row-span-2 relative group cursor-pointer overflow-hidden rounded-xl">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="ultra-luxury modern hotel infinity pool overlooking a tropical ocean at sunset with soft purple and orange sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbVmd_FYbeDEKhF-nsDyCNmIgqHc1lOtuXYcVrtzVHXLHXH59xqHBY8AEtoZeUBojwxpgqkEFBeRHKGLmoxtZolB0Nab_Ue0g5Vv4Royu_T19aiCbW9dbld3tAQwHCOXaPATAtOoEAhUnWqhTN_hU82BIS8i8O_1_nWdf_cPNpEXZ6wMuj0oEWKgxyoNCLbmotgwHolV5e-U-lZbrnhrdkMywJaVwEf-ivhZv21EHR9XAKQzc7kqmv_7oKYSdpUyAEH1-b5twRUFw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="md:col-span-1 md:row-span-1 relative group cursor-pointer overflow-hidden rounded-xl">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="elegant high-end hotel suite interior with minimalist furniture and floor-to-ceiling windows showing city skyline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfgNFLupfzxPFRtXNUIlQhFXAnwqiIoZNqYiTjEVrD9NqNXLdgB-20oTLOfP43MsY6WuTFDUEsRLx6GX5qUz_Tdxs3PBk0SeOMCTG0oyW01zeteFw13SPnOgPir27DN5-nKZjWruzQAWrp2gUSjPHDmMSFCyvI9t4BbqRsyX2TeR7AHArOd6c3-LrryutHCzYOXMVu2FC1kiIfyuwsEKMvSTxnXyL33Ps0Z3QFQpNe9O-mDxqR7LTsClCEdIuxYxzaERuohwdFYCM"/>
+</div>
+<div class="md:col-span-1 md:row-span-1 relative group cursor-pointer overflow-hidden rounded-xl">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="luxury bathroom with marble walls and a freestanding tub at night with soft ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZXkKggFydR4zeOwfetpKktOt0vcy90H0Qhew3E9M6288rsGLsQUwron_oBJYOhES10nkOUNgHYdw-eo8FmVgfoEWDOqTnHWEfyff-U8K7VjSDm8pq0fWF1-jn1gPw-dcgLwCnHnU33dr6NVqnEnXc11Wdvhbq1J3mVU3riXHqMYmY9dt4_eTQRXPcL4G-jxJhr1Tgpe4oNsKoOlFYGM1rmRiWIIAIZF5L-TNJF6KXDLLpVWL6xmfdNkxcaBagZ43ZlcIgepnfJ58"/>
+</div>
+<div class="md:col-span-2 md:row-span-1 relative group cursor-pointer overflow-hidden rounded-xl">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="serene outdoor spa area with wooden deck and lush tropical plants in soft morning sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcb3excc_WH5HVcdns7X-JbSijeSB5H7zo_PbKW0kqbFigpOjO64s7koPDl7l3JdDyCiwn8gi4OkJArQYSuzf-MitMMVNvyzXiDhv2XHuJ4h7EziI69c-NAkunNCpoBuuxecfhbi46PMsUnG8WZUbaxABtPo-d9VoXENVuFv4nkqFL_rgcIuOC0IvLpfzOs1Lpzf3dP29iftKHdt7bfsMiVVcLtjk_Bn80dQt9N5oB1wYoJ5xLSs07tkD_nl21IvIkt9kpYDuu8i8"/>
+<button class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-lg font-label-md flex items-center gap-2 shadow-lg hover:bg-white transition-all">
+<span class="material-symbols-outlined text-[18px]">grid_view</span>
+                    View all photos
+                </button>
+</div>
+</section>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-start">
+<!-- Left Column: Details -->
+<div class="lg:col-span-2 space-y-stack-md">
+<div class="space-y-base">
+<div class="flex items-center gap-stack-sm">
+<span class="bg-surface-container-highest text-on-tertiary-container px-3 py-1 rounded-full font-label-sm uppercase">Luxury Stay</span>
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md">4.9 (124 reviews)</span>
+</div>
+</div>
+<h2 class="font-headline-md text-on-background">Lumina Horizon Resort &amp; Spa</h2>
+<p class="flex items-center gap-1 text-outline font-label-md">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                        Maldives, North Atoll
+                    </p>
+</div>
+<hr class="border-outline-variant"/>
+<!-- Merchant Profile -->
+<div class="p-6 bg-surface-container-lowest rounded-xl border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover border-2 border-secondary-container" data-alt="middle aged professional male hotel manager in a sharp blue suit smiling confidently" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-CDb3U5eYempDoIvGNK2sRddoFhbivhsu3VdfJe3dZ98V-MjHNtlCSGwUDoy0mc2p5RH5tOxsAwUtr4oAQAqgzFCYnf0flfU4EySAmtccJj-xZFUeNDV6qlqJMO6nJVTIlrdzhYToPCCEIfVM4uwGowORfB76XQBJdSXyjwO3ZiLV3zj15jOOVHrwobp3-gH87xoSlNL1R9FhvBGpsU-qA8ofNaDdKpl6fLNSIMUAi9grXQQhAfInQhDr0sWl8-ljDfKZOFMDK6I"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-white rounded-full p-0.5 border-2 border-white">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-outline uppercase tracking-widest">Merchant</p>
+<h4 class="font-headline-sm text-on-background leading-tight">Azure Luxury Collective</h4>
+<p class="text-secondary font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+                                Reputation Score: 98/100
+                            </p>
+</div>
+</div>
+<button class="font-label-md text-on-tertiary-container hover:underline">View Profile</button>
+</div>
+<!-- Description -->
+<article class="space-y-stack-sm">
+<h3 class="font-headline-sm">Experience True Serenity</h3>
+<p class="text-body-md text-on-surface-variant">
+                        Perched on the edge of the sapphire lagoon, the Lumina Horizon offers an unparalleled escape from the mundane. Each villa is designed with floor-to-ceiling glass walls, allowing the transition between your private sanctuary and the vast Indian Ocean to vanish. 
+                    </p>
+<p class="text-body-md text-on-surface-variant">
+                        Our resort operates exclusively through the **GigGuard DAO protocol**, ensuring that your high-value booking is protected by decentralized escrow until the moment you scan your check-in code at our reception.
+                    </p>
+</article>
+<!-- Amenities -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="p-4 bg-surface rounded-lg border border-outline-variant flex flex-col gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container">wifi</span>
+<span class="font-label-md">Gigabit WiFi</span>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-outline-variant flex flex-col gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container">pool</span>
+<span class="font-label-md">Infinity Pool</span>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-outline-variant flex flex-col gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container">restaurant</span>
+<span class="font-label-md">Gourmet Dining</span>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-outline-variant flex flex-col gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container">spa</span>
+<span class="font-label-md">Wellness Spa</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Booking & Escrow -->
+<aside class="space-y-stack-md lg:sticky lg:top-24">
+<!-- Booking Card -->
+<div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-outline-variant overflow-hidden">
+<div class="p-6 space-y-stack-md">
+<div class="flex justify-between items-end">
+<div>
+<span class="font-display-lg text-primary text-[32px]">$1,250</span>
+<span class="text-outline font-label-md">/ night</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-fixed-variant px-3 py-1 rounded-full font-label-sm">SECURED</span>
+</div>
+<div class="space-y-stack-sm">
+<div class="grid grid-cols-2 border border-outline-variant rounded-xl divide-x divide-outline-variant overflow-hidden">
+<div class="p-3">
+<label class="block font-label-sm text-outline uppercase mb-1">Check-in</label>
+<span class="font-body-md">Oct 24, 2023</span>
+</div>
+<div class="p-3">
+<label class="block font-label-sm text-outline uppercase mb-1">Check-out</label>
+<span class="font-body-md">Oct 28, 2023</span>
+</div>
+</div>
+<div class="border border-outline-variant rounded-xl p-3">
+<label class="block font-label-sm text-outline uppercase mb-1">Guests</label>
+<span class="font-body-md">2 Adults, 1 Child</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between font-body-md">
+<span>$1,250 x 4 nights</span>
+<span>$5,000.00</span>
+</div>
+<div class="flex justify-between font-body-md">
+<span>Service Fee</span>
+<span>$120.00</span>
+</div>
+<div class="flex justify-between font-label-md pt-3 border-t border-outline-variant text-lg">
+<span>Total</span>
+<span>$5,120.00</span>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-4 rounded-xl font-label-md hover:bg-on-surface transition-all flex items-center justify-center gap-2 group">
+                            Book with Escrow Protection
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<p class="text-center text-outline font-label-sm italic">You won't be charged yet</p>
+</div>
+</div>
+<!-- Secure with GigGuard Section -->
+<div class="glass-panel p-6 rounded-2xl border border-secondary/20 bg-secondary/5 space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<h4 class="font-headline-sm text-[18px]">Secure with GigGuard</h4>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm">
+                        Your transaction is protected by the <span class="font-bold">GigGuard Escrow Protocol</span>. 
+                    </p>
+<div class="space-y-4 pt-2">
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center text-[10px] font-bold">1</div>
+<div class="w-0.5 h-full bg-secondary/20"></div>
+</div>
+<div class="pb-4">
+<p class="font-label-md text-on-background">Funds Locked</p>
+<p class="text-xs text-outline">Payment is held in a smart contract. Merchant cannot access it.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-secondary/20 text-secondary flex items-center justify-center text-[10px] font-bold border border-secondary/30">2</div>
+<div class="w-0.5 h-full bg-secondary/20"></div>
+</div>
+<div class="pb-4">
+<p class="font-label-md text-on-background">Service Provided</p>
+<p class="text-xs text-outline">Funds are locked until you check-in or confirm receipt.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-secondary/20 text-secondary flex items-center justify-center text-[10px] font-bold border border-secondary/30">3</div>
+</div>
+<div>
+<p class="font-label-md text-on-background">Release or Dispute</p>
+<p class="text-xs text-outline">Confirm to release funds. If issues arise, our DAO arbitrates.</p>
+</div>
+</div>
+</div>
+<!-- Porm-Verified Badge Component -->
+<div class="bg-white/80 border border-secondary/30 rounded-xl p-4 flex items-center gap-3 relative group">
+<div class="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-secondary to-on-secondary-container flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<div class="flex items-center gap-1">
+<span class="font-bold text-secondary text-sm">Porm-Verified</span>
+<span class="material-symbols-outlined text-[16px] text-outline cursor-help">info</span>
+</div>
+<p class="text-[10px] text-outline leading-tight uppercase font-bold tracking-tighter">Identity &amp; Quality Audited</p>
+</div>
+<!-- Tooltip Placeholder Simulation -->
+<div class="absolute bottom-full left-0 mb-2 w-48 p-2 bg-on-surface text-white text-[10px] rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                            This merchant has passed KYC, proof-of-address, and on-site quality verification by GigGuard auditors.
+                        </div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Location Map Placeholder -->
+<section class="space-y-stack-sm">
+<h3 class="font-headline-sm">Where you'll be</h3>
+<div class="w-full h-80 rounded-2xl overflow-hidden bg-surface-container border border-outline-variant relative">
+<img class="w-full h-full object-cover" data-alt="stylized architectural aerial view of a island luxury resort with white sand beaches and turquoise water" data-location="Maldives" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR9hdZE9vYXw7uJe4Hkm6XDH2UIssPktGaMEaPjoLJrTMbLiY2BuI4ic44PfsyhFGxd4_98a88OVrsrlxVcgmwtV7fKuwoCmlViYIDhBEXOmEGCjMqZsmwIKASkT05OwaYyKnxV94Yp173Llzt2COvfcQPQlQDU1oQ9L4D720mw085RDL6Fa5dHLsYE9dXsI-4aZuozA8J7c-T6agVAEblUvOFoqfbxfP--axWnC-B9aBUzW7gCh-1bzIDH8LG3DoMCPFJJ2d4rBU"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-white px-4 py-2 rounded-full shadow-xl border border-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-md">Lumina Resort, Atoll 4</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<footer class="md:hidden bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg text-slate-900 dark:text-slate-50 font-manrope text-[11px] font-semibold uppercase tracking-wider fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 z-50 border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_0_rgba(15,23,42,0.05)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 hover:text-slate-600 dark:hover:text-slate-300 transition-all">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 hover:text-slate-600 dark:hover:text-slate-300 transition-all">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 hover:text-slate-600 dark:hover:text-slate-300 transition-all">
+<span class="material-symbols-outlined">gavel</span>
+<span>Disputes</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1.5 hover:text-slate-600 dark:hover:text-slate-300 transition-all">
+<span class="material-symbols-outlined">person</span>
+<span>Profile</span>
+</div>
+</footer>
+</body></html>
