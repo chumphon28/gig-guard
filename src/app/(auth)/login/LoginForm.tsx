@@ -38,23 +38,13 @@ export default function LoginForm() {
 
       <div className="relative w-full max-w-md">
         {/* Brand */}
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl brand-gradient flex items-center justify-center mx-auto mb-5 shadow-lg">
-            <span
-              className="material-symbols-outlined text-white text-[32px]"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              shield_with_heart
-            </span>
-          </div>
-          <h1 className="text-[30px] font-extrabold tracking-tight text-on-surface">
-            GigGuard<span className="text-primary"> DAO</span>
-          </h1>
-          <p className="text-on-surface-variant mt-1.5 text-[15px]">The Trust Layer for P2P Transactions</p>
+        <div className="text-center mb-2">
+          <img src="/logo.png" alt="NONG POMz" className="h-60 w-auto mx-auto mb-2" />
+          {/* <p className="text-on-surface-variant mt-1">The Trust Layer for P2P Transactions</p> */}
         </div>
 
-        <div className="bg-white border border-outline-variant rounded-2xl p-8 shadow-card">
-          <h2 className="text-[22px] font-bold text-on-surface mb-6">เข้าสู่ระบบ</h2>
+        <div className="bg-white border border-outline-variant rounded-2xl px-8 pt-8 pb-10 shadow-card">
+          <h2 className="text-[22px] text-center font-bold text-on-surface mb-6">เข้าสู่ระบบ</h2>
 
           {error && (
             <div className="bg-error-container text-on-error-container rounded-xl px-4 py-3 mb-4 text-[14px] flex items-center gap-2">
