@@ -88,14 +88,17 @@ export default function ActionPanel({
       {/* BUYER: awaiting_deposit — show bank info + confirm button */}
       {role === 'buyer' && status === 'awaiting_deposit' && (
         <div className="space-y-4">
+          <div className="bg-tertiary-container rounded-xl p-4 flex items-center gap-3 mb-1">
+            <span className="material-symbols-outlined text-on-tertiary-container text-[20px]">wallet</span>
+            <p className="text-[13px] text-on-tertiary-container font-semibold">โอนเงินเต็มจำนวนเข้ากระเป๋ากลาง</p>
+          </div>
           <div className="bg-secondary/10 border border-secondary rounded-xl p-4 space-y-2 text-[14px]">
-            <p className="font-bold text-secondary mb-2">โอนมัดจำเข้าบัญชี Escrow</p>
             <div className="flex justify-between"><span className="text-on-surface-variant">ธนาคาร</span><span className="font-semibold">{deal.seller_bank_name}</span></div>
             <div className="flex justify-between"><span className="text-on-surface-variant">เลขบัญชี</span><span className="font-semibold font-mono">{deal.seller_account_number}</span></div>
             <div className="flex justify-between"><span className="text-on-surface-variant">ชื่อบัญชี</span><span className="font-semibold">{deal.seller_account_name}</span></div>
             <div className="flex justify-between border-t border-secondary/30 pt-2 mt-2">
-              <span className="text-on-surface-variant">ยอดมัดจำ</span>
-              <span className="font-bold text-secondary text-[16px]">{formatCurrency(deal.deposit_amount)}</span>
+              <span className="font-bold text-secondary">ยอดที่ต้องโอน (100%)</span>
+              <span className="font-bold text-secondary text-[18px]">{formatCurrency(deal.total_amount)}</span>
             </div>
           </div>
           <button
@@ -104,7 +107,7 @@ export default function ActionPanel({
             className="w-full bg-secondary text-on-secondary py-4 rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined">check_circle</span>
-            {loading ? 'กำลังดำเนินการ...' : 'ฉันโอนมัดจำแล้ว'}
+            {loading ? 'กำลังดำเนินการ...' : 'ฉันโอนเงินเข้ากระเป๋ากลางแล้ว'}
           </button>
         </div>
       )}
@@ -165,9 +168,9 @@ export default function ActionPanel({
             <p className="font-semibold text-on-surface mb-1">ข้อมูลการจัดส่ง</p>
             <p className="font-mono text-on-surface-variant">{deal.tracking_info}</p>
           </div>
-          <div className="bg-secondary/10 border border-secondary/30 rounded-xl p-4 text-[14px]">
-            <p className="font-semibold text-secondary mb-1">ยอดที่ต้องชำระเพิ่ม</p>
-            <p className="text-[20px] font-bold text-secondary">{formatCurrency(deal.remaining_amount)}</p>
+          <div className="bg-tertiary-container rounded-xl p-3 text-[13px] text-on-tertiary-container flex items-center gap-2">
+            <span className="material-symbols-outlined text-[16px]">wallet</span>
+            เงิน {formatCurrency(deal.total_amount)} อยู่ในกระเป๋ากลาง รอคุณยืนยันรับของ
           </div>
           <button
             onClick={() => transition('releasing_deposit')}
@@ -175,7 +178,7 @@ export default function ActionPanel({
             className="w-full bg-secondary text-on-secondary py-4 rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined">lock_open</span>
-            {loading ? '...' : 'ยืนยันรับของและชำระครบแล้ว'}
+            {loading ? '...' : 'ยืนยันรับของ — ปล่อยเงินให้ผู้ขาย'}
           </button>
           <button
             onClick={() => setShowDispute(true)}
@@ -186,25 +189,25 @@ export default function ActionPanel({
         </div>
       )}
 
-      {/* BUYER: releasing_deposit — waiting for system to transfer funds */}
+      {/* BUYER: releasing_deposit */}
       {role === 'buyer' && status === 'releasing_deposit' && (
         <div className="bg-tertiary-container rounded-xl p-4 text-center">
-          <span className="material-symbols-outlined text-[40px] text-on-tertiary-container block mb-2">account_balance</span>
-          <p className="text-[14px] font-semibold text-on-tertiary-container">ระบบกำลังโอนเงินให้ Seller</p>
-          <p className="text-[12px] text-on-tertiary-container/70 mt-1">รอ Seller ยืนยันรับเงิน</p>
+          <span className="material-symbols-outlined text-[40px] text-on-tertiary-container block mb-2">wallet</span>
+          <p className="text-[14px] font-semibold text-on-tertiary-container">ระบบกำลังโอนเงินให้ผู้ขาย</p>
+          <p className="text-[12px] text-on-tertiary-container/70 mt-1">รอผู้ขายยืนยันรับเงิน {formatCurrency(deal.total_amount)}</p>
         </div>
       )}
 
-      {/* SELLER: releasing_deposit — system releasing deposit */}
+      {/* SELLER: releasing_deposit */}
       {role === 'seller' && status === 'releasing_deposit' && (
         <div className="space-y-4">
           <div className="bg-tertiary-container rounded-xl p-4 text-[14px]">
             <div className="flex items-center gap-2 mb-2">
-              <span className="material-symbols-outlined text-on-tertiary-container text-[20px]">account_balance</span>
-              <p className="font-bold text-on-tertiary-container">ระบบโอนมัดจำให้คุณแล้ว</p>
+              <span className="material-symbols-outlined text-on-tertiary-container text-[20px]">wallet</span>
+              <p className="font-bold text-on-tertiary-container">กระเป๋ากลางโอนเงินให้คุณแล้ว</p>
             </div>
             <p className="text-on-tertiary-container/80">
-              Buyer ยืนยันรับของแล้ว ระบบโอนมัดจำ {formatCurrency(deal.deposit_amount)} เข้าบัญชีของคุณ
+              Buyer ยืนยันรับของแล้ว ระบบโอนเงิน {formatCurrency(deal.total_amount)} เข้าบัญชีของคุณ
             </p>
           </div>
           <button

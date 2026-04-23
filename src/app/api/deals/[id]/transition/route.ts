@@ -13,7 +13,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
   const { data: deal, error: fetchError } = await supabase
     .from('deals')
-    .select('id, seller_id, buyer_id, status, payment_status, deposit_amount, remaining_amount')
+    .select('id, seller_id, buyer_id, status, payment_status, total_amount')
     .eq('id', params.id)
     .single()
 
@@ -52,30 +52,15 @@ export async function POST(request: Request, { params }: { params: { id: string 
     await supabase.from('escrow_transactions').insert({
       deal_id: params.id,
       type: 'deposit_in',
-      amount: deal.deposit_amount,
-      description: `Buyer โอนมัดจำเข้าระบบ Escrow`,
+      amount: deal.total_amount,
+      description: `Buyer โอนเงิน 100% เข้ากระเป๋ากลาง`,
     })
   } else if (to === 'releasing_deposit') {
-    await supabase.from('escrow_transactions').insert([
-      {
-        deal_id: params.id,
-        type: 'remaining_in',
-        amount: deal.remaining_amount,
-        description: `Buyer ชำระยอดที่เหลือเข้าระบบ Escrow`,
-      },
-      {
-        deal_id: params.id,
-        type: 'deposit_out',
-        amount: deal.deposit_amount,
-        description: `ระบบโอนมัดจำให้ Seller`,
-      },
-    ])
-  } else if (to === 'completed' && deal.status === 'releasing_deposit') {
     await supabase.from('escrow_transactions').insert({
       deal_id: params.id,
-      type: 'remaining_out',
-      amount: deal.remaining_amount,
-      description: `ระบบโอนยอดที่เหลือให้ Seller`,
+      type: 'deposit_out',
+      amount: deal.total_amount,
+      description: `ระบบโอนเงินครบให้ Seller`,
     })
   }
 

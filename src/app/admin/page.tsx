@@ -21,7 +21,7 @@ export default async function AdminPage() {
   const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single()
   if (!profile?.is_admin) redirect('/dashboard')
 
-  const [{ data: allDeals }, { data: txRows }] = await Promise.all([
+  const [{ data: allDeals }, { data: txRows, error: txError }] = await Promise.all([
     supabase
       .from('deals')
       .select('*, seller:profiles!deals_seller_id_fkey(*), buyer:profiles!deals_buyer_id_fkey(*), dispute:disputes(*)')
@@ -34,6 +34,7 @@ export default async function AdminPage() {
 
   const deals = allDeals ?? []
   const txs = txRows ?? []
+  const txTableMissing = txError?.code === '42P01'
 
   // Escrow balance = deposit_in - deposit_out (deposits still held by system)
   const depositIn = txs.filter(t => t.type === 'deposit_in').reduce((s, t) => s + Number(t.amount), 0)
@@ -109,36 +110,44 @@ export default async function AdminPage() {
         {/* Escrow breakdown */}
         <div className="bg-white border border-outline-variant rounded-2xl p-5 shadow-sm mb-8">
           <h2 className="text-[14px] font-bold text-on-surface-variant uppercase tracking-wider mb-4 flex items-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">account_balance</span>
-            สรุป Escrow
+            <span className="material-symbols-outlined text-[18px]">wallet</span>
+            สรุปกระเป๋ากลาง
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">มัดจำเข้าระบบ</p>
-              <p className="text-[18px] font-bold text-on-surface mt-1">{formatCurrency(depositIn)}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-secondary-container rounded-xl p-4">
+              <p className="text-[11px] text-on-secondary-container font-semibold uppercase tracking-wider flex items-center gap-1">
+                <span className="material-symbols-outlined text-[13px]">arrow_downward</span>
+                เงินเข้ากระเป๋ากลาง
+              </p>
+              <p className="text-[22px] font-bold text-on-secondary-container mt-1">{formatCurrency(depositIn)}</p>
+              <p className="text-[11px] text-on-secondary-container/70 mt-1">{txs.filter((t: any) => t.type === 'deposit_in').length} รายการ</p>
             </div>
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">มัดจำโอนให้ Seller</p>
-              <p className="text-[18px] font-bold text-secondary mt-1">{formatCurrency(depositOut)}</p>
+            <div className="bg-tertiary-container rounded-xl p-4">
+              <p className="text-[11px] text-on-tertiary-container font-semibold uppercase tracking-wider flex items-center gap-1">
+                <span className="material-symbols-outlined text-[13px]">arrow_upward</span>
+                โอนออกให้ Seller
+              </p>
+              <p className="text-[22px] font-bold text-on-tertiary-container mt-1">{formatCurrency(depositOut)}</p>
+              <p className="text-[11px] text-on-tertiary-container/70 mt-1">{txs.filter((t: any) => t.type === 'deposit_out').length} รายการ</p>
             </div>
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">ยอดที่เหลือเข้าระบบ</p>
-              <p className="text-[18px] font-bold text-on-surface mt-1">{formatCurrency(remainingIn)}</p>
+            <div className="bg-primary-container rounded-xl p-4">
+              <p className="text-[11px] text-on-primary-container font-semibold uppercase tracking-wider">คงเหลือในกระเป๋ากลาง</p>
+              <p className="text-[22px] font-bold text-on-primary-container mt-1">{formatCurrency(escrowBalance)}</p>
+              <p className="text-[11px] text-on-primary-container/70 mt-1">มูลค่า Deal รวม {formatCurrency(totalValue)}</p>
             </div>
-            <div>
-              <p className="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">ยอดที่เหลือโอนให้ Seller</p>
-              <p className="text-[18px] font-bold text-secondary mt-1">{formatCurrency(remainingOut)}</p>
-            </div>
-          </div>
-          <div className="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center">
-            <p className="text-[14px] font-semibold text-on-surface">คงเหลือในระบบ</p>
-            <p className="text-[20px] font-bold text-on-tertiary-container">{formatCurrency(escrowBalance)}</p>
-          </div>
-          <div className="mt-2 flex justify-between items-center">
-            <p className="text-[14px] font-semibold text-on-surface">มูลค่า Deal รวมทั้งหมด</p>
-            <p className="text-[20px] font-bold text-on-surface">{formatCurrency(totalValue)}</p>
           </div>
         </div>
+
+        {/* SQL not run yet warning */}
+        {txTableMissing && (
+          <div className="bg-error-container text-on-error-container rounded-2xl p-5 mb-6 flex items-start gap-3">
+            <span className="material-symbols-outlined text-[22px] flex-shrink-0">warning</span>
+            <div>
+              <p className="font-bold mb-1">ตาราง escrow_transactions ยังไม่มีใน DB</p>
+              <p className="text-[13px]">รัน <code className="bg-black/10 px-1 rounded">requirements/escrow_transactions.sql</code> ใน Supabase SQL Editor ก่อน</p>
+            </div>
+          </div>
+        )}
 
         {/* All transactions */}
         <h2 className="text-[20px] font-bold text-on-surface mb-4 flex items-center gap-2">
@@ -146,8 +155,10 @@ export default async function AdminPage() {
           Escrow Transactions ({txs.length})
         </h2>
         <div className="bg-white border border-outline-variant rounded-2xl shadow-sm mb-10 overflow-hidden">
-          {txs.length === 0 ? (
-            <div className="p-10 text-center text-on-surface-variant">ยังไม่มี Transaction</div>
+          {txTableMissing ? (
+            <div className="p-10 text-center text-on-surface-variant">ยังไม่ได้สร้างตาราง — รัน SQL ก่อน</div>
+          ) : txs.length === 0 ? (
+            <div className="p-10 text-center text-on-surface-variant">ยังไม่มี Transaction — เกิดขึ้นเมื่อ Deal ผ่านขั้นตอน pending_confirmation, releasing_deposit, completed</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-[13px]">

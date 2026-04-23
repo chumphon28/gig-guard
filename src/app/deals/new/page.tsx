@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
-import { computeAmounts, formatCurrency } from '@/lib/deal-utils'
+import { formatCurrency } from '@/lib/deal-utils'
 import { createClient } from '@/lib/supabase/client'
 
 export default function NewDealPage() {
@@ -10,7 +10,6 @@ export default function NewDealPage() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [totalAmount, setTotalAmount] = useState('')
-  const [depositPercent, setDepositPercent] = useState(30)
   const [bankName, setBankName] = useState('')
   const [accountNumber, setAccountNumber] = useState('')
   const [accountName, setAccountName] = useState('')
@@ -29,9 +28,7 @@ export default function NewDealPage() {
     })
   }, [router])
 
-  const amounts = totalAmount
-    ? computeAmounts(Number(totalAmount), depositPercent)
-    : { depositAmount: 0, remainingAmount: 0, feeAmount: 0 }
+  const feeAmount = totalAmount ? Math.round(Number(totalAmount) * 1) / 100 : 0
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -44,7 +41,7 @@ export default function NewDealPage() {
         title,
         description,
         total_amount: Number(totalAmount),
-        deposit_percent: depositPercent,
+        deposit_percent: 100,
         seller_bank_name: bankName,
         seller_account_number: accountNumber,
         seller_account_name: accountName,
@@ -167,22 +164,11 @@ export default function NewDealPage() {
                       className="w-full border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary"
                     />
                   </div>
-                  <div>
-                    <label className="block text-[14px] font-semibold text-on-surface mb-2">
-                      % มัดจำ: <span className="text-secondary">{depositPercent}%</span>
-                    </label>
-                    <input
-                      type="range"
-                      min={10}
-                      max={50}
-                      step={5}
-                      value={depositPercent}
-                      onChange={e => setDepositPercent(Number(e.target.value))}
-                      className="w-full accent-secondary"
-                    />
-                    <div className="flex justify-between text-[12px] text-on-surface-variant mt-1">
-                      <span>10%</span><span>50%</span>
-                    </div>
+                  <div className="bg-tertiary-container rounded-xl p-4 flex items-center gap-3">
+                    <span className="material-symbols-outlined text-on-tertiary-container text-[20px]">wallet</span>
+                    <p className="text-[13px] text-on-tertiary-container font-semibold">
+                      Buyer จะโอนเงินเต็มจำนวน 100% เข้ากระเป๋ากลางก่อน จากนั้นระบบโอนให้ผู้ขายเมื่อ Buyer ยืนยันรับของ
+                    </p>
                   </div>
                 </div>
               </div>
@@ -254,16 +240,15 @@ export default function NewDealPage() {
                   <span className="font-semibold text-on-surface">{formatCurrency(Number(totalAmount) || 0)}</span>
                 </div>
                 <div className="flex justify-between text-[14px]">
-                  <span className="text-on-surface-variant">มัดจำ ({depositPercent}%)</span>
-                  <span className="font-semibold text-secondary">{formatCurrency(amounts.depositAmount)}</span>
-                </div>
-                <div className="flex justify-between text-[14px]">
-                  <span className="text-on-surface-variant">ยอดที่เหลือ</span>
-                  <span className="font-semibold text-on-surface">{formatCurrency(amounts.remainingAmount)}</span>
+                  <span className="text-on-surface-variant flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[14px]">wallet</span>
+                    เข้ากระเป๋ากลาง (100%)
+                  </span>
+                  <span className="font-semibold text-secondary">{formatCurrency(Number(totalAmount) || 0)}</span>
                 </div>
                 <div className="border-t border-outline-variant pt-3 flex justify-between text-[14px]">
                   <span className="text-on-surface-variant">Fee GigGuard (1%)</span>
-                  <span className="text-outline">{formatCurrency(amounts.feeAmount)}</span>
+                  <span className="text-outline">{formatCurrency(feeAmount)}</span>
                 </div>
               </div>
 

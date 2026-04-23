@@ -72,18 +72,17 @@ export default async function DealDetailPage({ params }: { params: { id: string 
               {d.description && (
                 <p className="text-[14px] opacity-80 mb-4">{d.description}</p>
               )}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-[11px] opacity-60 uppercase tracking-wider font-semibold">ยอดรวม</p>
-                  <p className="text-[20px] font-bold mt-1">{formatCurrency(d.total_amount)}</p>
+                  <p className="text-[24px] font-bold mt-1">{formatCurrency(d.total_amount)}</p>
                 </div>
                 <div>
-                  <p className="text-[11px] opacity-60 uppercase tracking-wider font-semibold">มัดจำ {d.deposit_percent}%</p>
-                  <p className="text-[20px] font-bold mt-1 text-secondary-fixed-dim">{formatCurrency(d.deposit_amount)}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] opacity-60 uppercase tracking-wider font-semibold">ที่เหลือ</p>
-                  <p className="text-[20px] font-bold mt-1">{formatCurrency(d.remaining_amount)}</p>
+                  <p className="text-[11px] opacity-60 uppercase tracking-wider font-semibold flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[13px]">wallet</span>
+                    เข้ากระเป๋ากลาง
+                  </p>
+                  <p className="text-[24px] font-bold mt-1 text-secondary-fixed-dim">{formatCurrency(d.total_amount)}</p>
                 </div>
               </div>
             </div>

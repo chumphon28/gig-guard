@@ -61,11 +61,11 @@ export function isVerified(profile: { completed_deals_as_seller: number; avg_rat
 
 export const STATUS_LABELS: Record<DealStatus, string> = {
   created: 'รอ Buyer',
-  awaiting_deposit: 'รอมัดจำ',
+  awaiting_deposit: 'รอชำระเงิน',
   pending_confirmation: 'รอยืนยัน',
   confirmed: 'ยืนยันแล้ว',
   shipped: 'จัดส่งแล้ว',
-  releasing_deposit: 'โอนมัดจำให้ผู้ขาย',
+  releasing_deposit: 'โอนเงินให้ผู้ขาย',
   completed: 'เสร็จสิ้น',
   disputed: 'มีข้อพิพาท',
   cancelled: 'ยกเลิก',

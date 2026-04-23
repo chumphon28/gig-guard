@@ -3,10 +3,10 @@ import type { DealStatus } from '@/lib/types'
 const STEPS: { key: DealStatus; label: string; icon: string }[] = [
   { key: 'created', label: 'สร้าง Deal', icon: 'description' },
   { key: 'awaiting_deposit', label: 'Buyer เข้าร่วม', icon: 'person_add' },
-  { key: 'pending_confirmation', label: 'ส่งมัดจำเข้าระบบ', icon: 'payments' },
-  { key: 'confirmed', label: 'ยืนยันมัดจำ', icon: 'check_circle' },
+  { key: 'pending_confirmation', label: 'โอนเข้ากระเป๋ากลาง', icon: 'wallet' },
+  { key: 'confirmed', label: 'ยืนยันแล้ว', icon: 'check_circle' },
   { key: 'shipped', label: 'จัดส่ง', icon: 'local_shipping' },
-  { key: 'releasing_deposit', label: 'โอนมัดจำให้ผู้ขาย', icon: 'account_balance' },
+  { key: 'releasing_deposit', label: 'โอนเงินให้ผู้ขาย', icon: 'account_balance' },
   { key: 'completed', label: 'เสร็จสิ้น', icon: 'lock_open' },
 ]
 
@@ -41,8 +41,8 @@ export default function EscrowStepper({ status }: { status: DealStatus }) {
           return (
             <div key={step.key} className="relative z-10 flex flex-col items-center gap-2 px-2 min-w-[60px]">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-white
-                  ${isDone ? 'bg-secondary text-white' : isCurrent ? 'border-4 border-secondary text-secondary shadow-sm' : 'border-2 border-slate-300 text-slate-400'}`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all
+                  ${isDone ? 'bg-secondary text-white' : isCurrent ? 'bg-white border-4 border-secondary text-secondary shadow-sm' : 'bg-white border-2 border-slate-300 text-slate-400'}`}
               >
                 {isDone ? (
                   <span
