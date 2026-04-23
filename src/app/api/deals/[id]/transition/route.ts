@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 import { getUserRole, canTransition } from '@/lib/deal-utils'
 import type { DealStatus } from '@/lib/types'
 
@@ -47,17 +47,16 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // Record escrow transactions using admin client (bypasses RLS)
-  const adminSupabase = createAdminClient()
+  // Record escrow transactions (RLS allows insert for deal parties)
   if (to === 'pending_confirmation') {
-    await adminSupabase.from('escrow_transactions').insert({
+    await supabase.from('escrow_transactions').insert({
       deal_id: params.id,
       type: 'deposit_in',
       amount: deal.deposit_amount,
       description: `Buyer โอนมัดจำเข้าระบบ Escrow`,
     })
   } else if (to === 'releasing_deposit') {
-    await adminSupabase.from('escrow_transactions').insert([
+    await supabase.from('escrow_transactions').insert([
       {
         deal_id: params.id,
         type: 'remaining_in',
@@ -72,7 +71,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
       },
     ])
   } else if (to === 'completed' && deal.status === 'releasing_deposit') {
-    await adminSupabase.from('escrow_transactions').insert({
+    await supabase.from('escrow_transactions').insert({
       deal_id: params.id,
       type: 'remaining_out',
       amount: deal.remaining_amount,

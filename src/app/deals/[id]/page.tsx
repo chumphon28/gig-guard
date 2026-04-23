@@ -45,7 +45,7 @@ export default async function DealDetailPage({ params }: { params: { id: string 
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
-      <Header userName={userProfile?.name} />
+      <Header userName={userProfile?.name} isAdmin={userProfile?.is_admin} />
 
       <main className="pt-20 px-4 md:px-6 max-w-[1280px] mx-auto mt-6">
         {/* Breadcrumb */}

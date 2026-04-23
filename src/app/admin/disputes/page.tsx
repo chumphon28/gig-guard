@@ -37,7 +37,7 @@ export default async function AdminDisputesPage() {
 
   return (
     <div className="min-h-screen bg-background pb-8">
-      <Header userName={profile.name} />
+      <Header userName={profile.name} isAdmin />
 
       <main className="pt-20 px-4 md:px-6 max-w-[1280px] mx-auto mt-6">
         <div className="flex items-center gap-3 mb-8">

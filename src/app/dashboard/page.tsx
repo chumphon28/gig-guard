@@ -21,6 +21,8 @@ export default async function DashboardPage() {
       .order('created_at', { ascending: false }),
   ])
 
+  if (profile?.is_admin) redirect('/admin')
+
   const deals = (allDeals ?? []) as Deal[]
   const sellerDeals = deals.filter(d => d.seller_id === user.id)
   const buyerDeals = deals.filter(d => d.buyer_id === user.id)
@@ -30,7 +32,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
-      <Header userName={profile?.name} />
+      <Header userName={profile?.name} isAdmin={profile?.is_admin} />
 
       <main className="pt-20 px-4 md:px-6 max-w-[1280px] mx-auto">
         {/* Stats bento */}
