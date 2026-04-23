@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { getUserRole, canTransition } from '@/lib/deal-utils'
 import type { DealStatus } from '@/lib/types'
 
@@ -13,7 +13,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
   const { data: deal, error: fetchError } = await supabase
     .from('deals')
-    .select('id, seller_id, buyer_id, status, payment_status')
+    .select('id, seller_id, buyer_id, status, payment_status, deposit_amount, remaining_amount')
     .eq('id', params.id)
     .single()
 
@@ -34,7 +34,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
   const updateData: Record<string, unknown> = { status: to }
 
   if (to === 'pending_confirmation') updateData.payment_status = 'deposit_paid'
-  if (to === 'completed') updateData.payment_status = 'fully_paid'
+  if (to === 'releasing_deposit') updateData.payment_status = 'fully_paid'
   if (to === 'shipped') {
     if (!tracking_info) return NextResponse.json({ error: 'กรุณากรอกข้อมูลการจัดส่ง' }, { status: 400 })
     updateData.tracking_info = tracking_info
@@ -46,5 +46,39 @@ export async function POST(request: Request, { params }: { params: { id: string 
     .eq('id', params.id)
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  // Record escrow transactions using admin client (bypasses RLS)
+  const adminSupabase = createAdminClient()
+  if (to === 'pending_confirmation') {
+    await adminSupabase.from('escrow_transactions').insert({
+      deal_id: params.id,
+      type: 'deposit_in',
+      amount: deal.deposit_amount,
+      description: `Buyer โอนมัดจำเข้าระบบ Escrow`,
+    })
+  } else if (to === 'releasing_deposit') {
+    await adminSupabase.from('escrow_transactions').insert([
+      {
+        deal_id: params.id,
+        type: 'remaining_in',
+        amount: deal.remaining_amount,
+        description: `Buyer ชำระยอดที่เหลือเข้าระบบ Escrow`,
+      },
+      {
+        deal_id: params.id,
+        type: 'deposit_out',
+        amount: deal.deposit_amount,
+        description: `ระบบโอนมัดจำให้ Seller`,
+      },
+    ])
+  } else if (to === 'completed' && deal.status === 'releasing_deposit') {
+    await adminSupabase.from('escrow_transactions').insert({
+      deal_id: params.id,
+      type: 'remaining_out',
+      amount: deal.remaining_amount,
+      description: `ระบบโอนยอดที่เหลือให้ Seller`,
+    })
+  }
+
   return NextResponse.json({ success: true, status: to })
 }

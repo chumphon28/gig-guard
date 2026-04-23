@@ -12,8 +12,11 @@ export const ALLOWED_TRANSITIONS: Record<
   ],
   confirmed: [{ to: 'shipped', role: 'seller' }],
   shipped: [
-    { to: 'completed', role: 'buyer', paymentStatus: 'fully_paid' },
+    { to: 'releasing_deposit', role: 'buyer', paymentStatus: 'fully_paid' },
     { to: 'disputed', role: 'buyer' },
+  ],
+  releasing_deposit: [
+    { to: 'completed', role: 'seller' },
   ],
   disputed: [
     { to: 'completed', role: 'admin', paymentStatus: 'fully_paid' },
@@ -62,6 +65,7 @@ export const STATUS_LABELS: Record<DealStatus, string> = {
   pending_confirmation: 'รอยืนยัน',
   confirmed: 'ยืนยันแล้ว',
   shipped: 'จัดส่งแล้ว',
+  releasing_deposit: 'โอนมัดจำให้ผู้ขาย',
   completed: 'เสร็จสิ้น',
   disputed: 'มีข้อพิพาท',
   cancelled: 'ยกเลิก',
@@ -73,6 +77,7 @@ export const STATUS_STYLES: Record<DealStatus, string> = {
   pending_confirmation: 'bg-error-container text-on-error-container',
   confirmed: 'bg-secondary-container text-on-secondary-container',
   shipped: 'bg-on-tertiary-container text-white',
+  releasing_deposit: 'bg-tertiary-container text-on-tertiary-container',
   completed: 'bg-secondary text-on-secondary',
   disputed: 'bg-error-container text-error',
   cancelled: 'bg-surface-container-high text-on-surface-variant',

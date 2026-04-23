@@ -8,6 +8,7 @@ import StatusPill from '@/components/StatusPill'
 import VerifiedBadge from '@/components/VerifiedBadge'
 import ReviewStars from '@/components/ReviewStars'
 import ActionPanel from './ActionPanel'
+import CopyLinkButton from './CopyLinkButton'
 import { formatCurrency, getUserRole, isVerified } from '@/lib/deal-utils'
 import type { Deal } from '@/lib/types'
 
@@ -201,20 +202,6 @@ export default async function DealDetailPage({ params }: { params: { id: string 
       </main>
 
       <BottomNav />
-    </div>
-  )
-}
-
-function CopyLinkButton({ dealId }: { dealId: string }) {
-  return (
-    <div
-      className="flex items-center gap-2 px-3 py-2 bg-surface-container rounded-lg cursor-pointer hover:bg-surface-container-high transition-colors text-[13px] font-semibold text-on-surface-variant"
-      onClick={() => {
-        navigator.clipboard.writeText(`${window.location.origin}/deals/${dealId}/join`)
-      }}
-    >
-      <span className="material-symbols-outlined text-[16px]">content_copy</span>
-      คัดลอกลิงก์
     </div>
   )
 }

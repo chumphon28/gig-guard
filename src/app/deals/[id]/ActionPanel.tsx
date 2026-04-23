@@ -57,14 +57,23 @@ export default function ActionPanel({
       )}
 
       {/* GUEST */}
-      {role === 'guest' && (
-        <Link
-          href={`/login?redirect=/deals/${deal.id}/join`}
-          className="w-full bg-primary text-on-primary py-4 rounded-xl font-semibold text-[16px] hover:opacity-90 transition-all flex items-center justify-center gap-2"
-        >
-          <span className="material-symbols-outlined">login</span>
-          Login เพื่อเข้าร่วม Deal
-        </Link>
+      {role === 'guest' && deal.status === 'created' && !deal.buyer_id && (
+        userId ? (
+          <JoinDealButton dealId={deal.id} />
+        ) : (
+          <Link
+            href={`/login?redirect=/deals/${deal.id}/join`}
+            className="w-full bg-primary text-on-primary py-4 rounded-xl font-semibold text-[16px] hover:opacity-90 transition-all flex items-center justify-center gap-2"
+          >
+            <span className="material-symbols-outlined">login</span>
+            Login เพื่อเข้าร่วม Deal
+          </Link>
+        )
+      )}
+      {role === 'guest' && (deal.status !== 'created' || deal.buyer_id) && (
+        <div className="bg-surface-container rounded-xl p-4 text-center text-[14px] text-on-surface-variant">
+          Deal นี้ไม่เปิดรับ Buyer แล้ว
+        </div>
       )}
 
       {/* SELLER: created — waiting for buyer */}
@@ -80,7 +89,7 @@ export default function ActionPanel({
       {role === 'buyer' && status === 'awaiting_deposit' && (
         <div className="space-y-4">
           <div className="bg-secondary/10 border border-secondary rounded-xl p-4 space-y-2 text-[14px]">
-            <p className="font-bold text-secondary mb-2">โอนเงินมัดจำไปที่</p>
+            <p className="font-bold text-secondary mb-2">โอนมัดจำเข้าบัญชี Escrow</p>
             <div className="flex justify-between"><span className="text-on-surface-variant">ธนาคาร</span><span className="font-semibold">{deal.seller_bank_name}</span></div>
             <div className="flex justify-between"><span className="text-on-surface-variant">เลขบัญชี</span><span className="font-semibold font-mono">{deal.seller_account_number}</span></div>
             <div className="flex justify-between"><span className="text-on-surface-variant">ชื่อบัญชี</span><span className="font-semibold">{deal.seller_account_name}</span></div>
@@ -161,7 +170,7 @@ export default function ActionPanel({
             <p className="text-[20px] font-bold text-secondary">{formatCurrency(deal.remaining_amount)}</p>
           </div>
           <button
-            onClick={() => transition('completed')}
+            onClick={() => transition('releasing_deposit')}
             disabled={loading}
             className="w-full bg-secondary text-on-secondary py-4 rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
           >
@@ -173,6 +182,38 @@ export default function ActionPanel({
             className="w-full border border-error text-error py-3 rounded-xl font-semibold hover:bg-error-container transition-all"
           >
             มีปัญหา / เปิด Dispute
+          </button>
+        </div>
+      )}
+
+      {/* BUYER: releasing_deposit — waiting for system to transfer funds */}
+      {role === 'buyer' && status === 'releasing_deposit' && (
+        <div className="bg-tertiary-container rounded-xl p-4 text-center">
+          <span className="material-symbols-outlined text-[40px] text-on-tertiary-container block mb-2">account_balance</span>
+          <p className="text-[14px] font-semibold text-on-tertiary-container">ระบบกำลังโอนเงินให้ Seller</p>
+          <p className="text-[12px] text-on-tertiary-container/70 mt-1">รอ Seller ยืนยันรับเงิน</p>
+        </div>
+      )}
+
+      {/* SELLER: releasing_deposit — system releasing deposit */}
+      {role === 'seller' && status === 'releasing_deposit' && (
+        <div className="space-y-4">
+          <div className="bg-tertiary-container rounded-xl p-4 text-[14px]">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="material-symbols-outlined text-on-tertiary-container text-[20px]">account_balance</span>
+              <p className="font-bold text-on-tertiary-container">ระบบโอนมัดจำให้คุณแล้ว</p>
+            </div>
+            <p className="text-on-tertiary-container/80">
+              Buyer ยืนยันรับของแล้ว ระบบโอนมัดจำ {formatCurrency(deal.deposit_amount)} เข้าบัญชีของคุณ
+            </p>
+          </div>
+          <button
+            onClick={() => transition('completed')}
+            disabled={loading}
+            className="w-full bg-secondary text-on-secondary py-4 rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+          >
+            <span className="material-symbols-outlined">check_circle</span>
+            {loading ? '...' : 'รับเงินและปิด Deal'}
           </button>
         </div>
       )}
@@ -229,6 +270,41 @@ export default function ActionPanel({
       {role === 'admin' && status === 'disputed' && (
         <AdminVerdictPanel dealId={deal.id} />
       )}
+    </div>
+  )
+}
+
+function JoinDealButton({ dealId }: { dealId: string }) {
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  async function join() {
+    setLoading(true)
+    setError('')
+    const res = await fetch(`/api/deals/${dealId}/join`, { method: 'POST' })
+    const data = await res.json()
+    if (!res.ok) {
+      setError(data.error || 'เกิดข้อผิดพลาด')
+      setLoading(false)
+    } else {
+      router.refresh()
+    }
+  }
+
+  return (
+    <div>
+      {error && (
+        <div className="bg-error-container text-on-error-container rounded-xl px-4 py-3 mb-3 text-[14px]">{error}</div>
+      )}
+      <button
+        onClick={join}
+        disabled={loading}
+        className="w-full bg-secondary text-on-secondary py-4 rounded-xl font-semibold text-[16px] hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+      >
+        <span className="material-symbols-outlined">handshake</span>
+        {loading ? 'กำลังเข้าร่วม...' : 'เข้าร่วม Deal นี้'}
+      </button>
     </div>
   )
 }

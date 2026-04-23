@@ -17,11 +17,12 @@ export async function POST(_req: Request, { params }: { params: { id: string } }
   if (deal.buyer_id) return NextResponse.json({ error: 'Deal นี้มี Buyer แล้ว' }, { status: 400 })
   if (deal.status !== 'created') return NextResponse.json({ error: 'Deal ไม่อยู่ในสถานะที่รับ Buyer ได้' }, { status: 400 })
 
-  const { error } = await supabase
+  const { error, count } = await supabase
     .from('deals')
-    .update({ buyer_id: user.id, status: 'awaiting_deposit' })
+    .update({ buyer_id: user.id, status: 'awaiting_deposit' }, { count: 'exact' })
     .eq('id', params.id)
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (count === 0) return NextResponse.json({ error: 'ไม่สามารถเข้าร่วม Deal ได้ (RLS blocked)' }, { status: 403 })
   return NextResponse.json({ success: true })
 }

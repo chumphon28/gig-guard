@@ -3,9 +3,10 @@ import type { DealStatus } from '@/lib/types'
 const STEPS: { key: DealStatus; label: string; icon: string }[] = [
   { key: 'created', label: 'สร้าง Deal', icon: 'description' },
   { key: 'awaiting_deposit', label: 'Buyer เข้าร่วม', icon: 'person_add' },
-  { key: 'pending_confirmation', label: 'ส่งมัดจำ', icon: 'payments' },
+  { key: 'pending_confirmation', label: 'ส่งมัดจำเข้าระบบ', icon: 'payments' },
   { key: 'confirmed', label: 'ยืนยันมัดจำ', icon: 'check_circle' },
   { key: 'shipped', label: 'จัดส่ง', icon: 'local_shipping' },
+  { key: 'releasing_deposit', label: 'โอนมัดจำให้ผู้ขาย', icon: 'account_balance' },
   { key: 'completed', label: 'เสร็จสิ้น', icon: 'lock_open' },
 ]
 
@@ -15,7 +16,8 @@ const STATUS_STEP_INDEX: Record<DealStatus, number> = {
   pending_confirmation: 2,
   confirmed: 3,
   shipped: 4,
-  completed: 5,
+  releasing_deposit: 5,
+  completed: 6,
   disputed: 4,
   cancelled: -1,
 }

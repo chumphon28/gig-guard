@@ -4,6 +4,7 @@ export type DealStatus =
   | 'pending_confirmation'
   | 'confirmed'
   | 'shipped'
+  | 'releasing_deposit'
   | 'completed'
   | 'disputed'
   | 'cancelled'
@@ -52,6 +53,15 @@ export interface Dispute {
   verdict: 'refund_buyer' | 'release_seller' | null
   created_at: string
   resolved_at: string | null
+}
+
+export interface EscrowTransaction {
+  id: string
+  deal_id: string
+  type: 'deposit_in' | 'deposit_out' | 'remaining_in' | 'remaining_out'
+  amount: number
+  description: string
+  created_at: string
 }
 
 export interface Review {
