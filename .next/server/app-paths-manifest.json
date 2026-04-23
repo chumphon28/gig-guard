@@ -1,0 +1,20 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(auth)/register/page": "app/(auth)/register/page.js",
+  "/api/auth/callback/route": "app/api/auth/callback/route.js",
+  "/api/deals/[id]/dispute/route": "app/api/deals/[id]/dispute/route.js",
+  "/api/deals/[id]/route": "app/api/deals/[id]/route.js",
+  "/api/deals/[id]/verdict/route": "app/api/deals/[id]/verdict/route.js",
+  "/api/deals/[id]/review/route": "app/api/deals/[id]/review/route.js",
+  "/api/deals/[id]/join/route": "app/api/deals/[id]/join/route.js",
+  "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/api/deals/route": "app/api/deals/route.js",
+  "/api/deals/[id]/transition/route": "app/api/deals/[id]/transition/route.js",
+  "/deals/[id]/join/page": "app/deals/[id]/join/page.js",
+  "/deals/new/page": "app/deals/new/page.js",
+  "/deals/[id]/page": "app/deals/[id]/page.js",
+  "/profile/[id]/page": "app/profile/[id]/page.js",
+  "/admin/disputes/page": "app/admin/disputes/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js"
+}
